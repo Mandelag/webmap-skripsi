@@ -1,0 +1,96 @@
+p.title {
+	font-family: Times, Helvetica,sans-serif;
+	line-height: 1.5em;
+	color: #333;
+	font-size: 1.4em;
+	font-style:normal;
+	margin-top: 0.1em;
+	margin-bottom: 0.4em;
+	text-indent: 0px;
+	font-weight: bold;
+}
+hr {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	//line-height: 2em;
+}
+
+p.subtitle {
+	margin-top: 0.1em;
+	font-family: Times, Helvetica,sans-serif;
+	line-height: 1.5em;
+	color: #999;
+	padding-top: 0px;
+	font-size: 1.1em;
+	font-style:normal;
+	text-indent: 0px;
+}
+
+
+.card {
+	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	box-shadow: 0px 9px 9px #ccc;
+	border-radius: 0.5em;
+	border: 1px solid #cccccc;
+}
+
+.card-content {
+	padding: 30px;
+}
+
+@media screen and (max-width: 660px ) {
+	.card  {
+		width: 90%;
+		//background-color:#ff0;
+	}
+	p, li{
+		font-family: Times,Helvetica,sans-serif;
+		color: #555;
+		font-size: 1em;
+		line-height: 1.6em;
+		//text-indent: 10px;
+	}
+}
+
+@media all and (min-width: 660px){
+	.card  {
+		width: 564px; //harusnya 594.. (+26 dari mana?) 
+	}
+	p.title{
+		font-size: 1.7em;
+	}
+	p, li{
+		font-family: Times,Helvetica,sans-serif;
+		color: #555;
+		font-size: 1.2em;
+		line-height: 1.6em;
+		//text-indent: 10px;
+	}
+}
+input {
+	width:100%;
+	padding: auto;
+	margin: auto;
+	height: 2em;
+	border: 1px solid #cccccc;
+}
+input.kecil {
+	width: 20%;
+}
+textarea {
+	width: 100%;
+}
+
+h1 {
+	font-size: 1.2em;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	color: #aaf;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+}

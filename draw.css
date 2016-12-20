@@ -1,0 +1,180 @@
+html {
+	height: 100%;
+}
+body {
+	height:100%;
+	margin: 0px 0px 0px 0px;
+}
+
+.map {
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+}
+
+/* tombol tambah utama */
+
+.round-button {
+	width: 3.25em;
+	height: 3.25em;
+	position: fixed;
+	right: 20px;
+	bottom: 25px;
+	z-index: 1;
+	text-align: center;
+	color: #fff;
+	background-color: rgba(256, 0, 0, 0.6);
+	border: 2px solid #fff;
+	border-radius: 3.25em;
+	box-shadow: 0 9px 9px #ccc;
+
+}
+
+
+.round-button a {
+    display:block;
+	float:left;
+	width:100%;
+	text-align:center;
+	color:#fff;
+    font-family:"Times";
+    font-size:2.75em;
+    font-weight:bold;
+    text-decoration:none;
+	border-radius: 3.25em;
+	cursor: default; //kalo pake pointer.. muncul kotak aneh setelah diklik..
+}
+
+.round-button:active, .round-button.active {
+	background-color: rgba(100, 100, 256, 0.6);
+	border: 2px solid #ff0;
+
+}
+
+/* informasi */
+
+.floating {
+	position: absolute;
+	left: 20px;
+	bottom: 25px;
+	z-index:1;
+	width: 60%;
+	border-radius: 0.5em;
+	box-shadow: 0px 9px 9px #ccc;
+	background-color: rgba(256,256,256,0.8);
+
+}
+
+.floating p{
+	font-size: 0.9em;
+	color: #555;
+	padding: 0.1em 1em 0.1em 1em;
+	line-height: 1.8em;
+	z-index:1;
+}
+
+
+input {
+	width:100%;
+}
+input.kecil {
+	width: 20%;
+}
+
+textarea {
+	width: 100%;
+}
+
+h1 {
+	font-size: 1.2em;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	color: #aaf;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+
+}
+
+table {
+	font-size:0.85em;
+	color: #555;
+}
+
+td{
+	vertical-align: top;
+}
+
+td div {
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	display: block;
+	max-height: 100px;
+}
+
+.ol-attribution{
+	display: none;
+}
+
+
+/* Overlays (http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css) */
+.ui-widget-overlay {
+	background: #aaaaaa;
+	opacity: .4;
+	filter: Alpha(Opacity=30); /* support: IE8 */
+}
+.ui-widget-shadow {
+	-webkit-box-shadow: 0px 0px 5px #666666;
+	box-shadow: 0px 0px 5px #666666;
+}
+
+/* map popup http://openlayers.org/en/latest/examples/popup.html */
+
+.ol-popup {
+        position: absolute;
+        background-color: rgba(256, 256, 256, 0.8);
+        //-webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        //filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+       	box-shadow: 0 9px 9px #ccc;
+
+		font-size: 1em;
+		
+		padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 220px;
+		width: 80%;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }

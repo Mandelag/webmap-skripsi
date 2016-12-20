@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Identitas Diri</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="text/javascript" src="jquery-3.1.1.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.0/ol-debug.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.0/ol-debug.css" />
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1/jquery-ui.css" />
+
+		<link rel="stylesheet" type="text/css" href="index.css" />
+	</head>
+	<body>	
+		<div id="halaman1" class="card">
+			<div class="card-content">
+			<p class="title" >Analisa Perbandingan <span style="font-style:italic">Volunteered Geographic Information</span> (VGI) dengan <span style="font-style:italic">Mental Maps</span></p>
+			<hr>
+			<p id="greetings">
+				
+			</p>
+			<script type="text/javascript">
+				var d = new Date();
+				var j = d.getHours();
+				var msg = "";
+				if(j>=0 && j<10){
+					msg = "Selamat pagi,";
+				}else if(j>=10 && j< 15) {
+					msg = "Selamat siang,";
+				}else if (j>=3 && j< 18) {
+					msg = "Selamat sore, ";
+				}else {
+					msg = "Selamat malam, ";
+				}
+				$("#greetings").html(msg);
+			</script>
+			<p>
+			Saya Keenan dari departemen Geografi FMIPA Universitas Indonesia. Saya sedang meneliti kualitas informasi geografis yang dihasilkan melalui media kertas
+			(<span style="font-style:italic">mental maps</span>) maupun komputer (<span style="font-style:italic">VGI</span>)
+			untuk skripsi saya.
+			</p>
+			
+			<p>
+			Saya membutuhkan responden untuk memberikan informasi terkait <span style="font-weight:bold;">tempat tinggal sementara</span>,
+			dan <span style="font-weight:bold;">tempat makan favorit</span> kamu di sekitar Kampus UI Depok.
+			</p>
+			
+			<p>
+			Jika kamu merasa memenuhi persyaratan berikut,
+			</p>
+			<ol>
+				<li>Mahasiswa UI atau alumni UI tidak lebih dari 1 tahun.</li>
+				<li>Sedang tinggal secara sementara (baik kos, apartemen, kontrak, rumah kerabat, maupun pondok) di sekitar (<span style="text-decoration:underline">bukan di dalam</span>) kampus UI Depok.</li>
+			</ol>
+			<p>
+			dimohon kesediaannya untuk menjadi responden penelitian.
+			</p>
+			
+			<p>
+			Terimakasih.
+			</p>
+			<br />
+			<p>
+			Salam,<br /><br />Peneliti
+			</p>
+			
+			</div>
+		</div>
+		<div id="halaman2" class="card">
+			<div id="identitas" class="card-content">
+			<h2>Identitas diri</h2>
+			<form>
+			<p>Nama </p><input type="text" name="nama" pattern="[a-zA-Z ]+" required>
+			<p>Usia</p>
+			<p><input id="tl" class="kecil" type="number" min=0 max=25 name="tl" required> Tahun</p>
+			<p>Jenis kelamin </p>
+			<label for="jk-m">Laki-laki</label>
+			<input class="radio" type="radio" name="jk" id="jk-m" value="m" required>
+			<label for="jk-f">Perempuan</label>
+			<input class="radio" type="radio" name="jk" id="jk-f"value="f" required>
+			<p>NPM </p><input type="number" pattern="[\d]*" name="npm" inputmode="numeric" maxlength=16 required>
+			<!--<p>Jurusan: <input type="text" name="jurusan"/></p>-->
+			<p>Fakultas</p> 
+				<select name="fakultas" required>
+					<option value="FK">Fakultas Kesehatan</option>
+					<option value="FEB">Fakultas  Ekonomi dan Bisnis</option>
+					<option value="FH">Fakultas Hukum</option>
+					<option value="FT">Fakultas Teknik</option>
+					<option value="FF">Fakultas Farmasi</option>
+					<option value="FPSI">Fakultas Psikologi</option>
+					<option value="FASILKOM">Fakultas Ilmu Komputer</option>		
+					<option value="FKG">Fakultas Kedokteran Gigi</option>
+					<option value="FIK">Fakultas Ilmu Keperawatan</option>
+					<option value="FKM">Fakultas Kesehatan Masyarakat</option>
+					<option value="FIB">Fakultas Ilmu Budaya</option>
+					<option value="FISIP">Fakultas Ilmu Sosial dan Ilmu Politik</option>
+					<option value="FMIPA">Fakultas Matematika dan Ilmu Pengetahuan Alam</option>
+					<option value="FIA">Fakultas Ilmu Administrasi</option>
+					<option value="VOK">Program Vokasi</option>
+				</select>
+			<!--<p>Angkatan <input type="text" name="angkatan" /></p>-->
+			
+			<p>No. HP </p><input type="text" pattern="[\d\+]*" name="hp" required>
+			<br /><br />
+			<input id="submit" class="ui-button ui-widget ui-corner-all" type="submit" value="Selanjutnya">
+		</form>
+			</div>
+		</div>
+		<div id="halaman3" class="card">
+			<div id="kos" class="card-content">
+			<h2>Tempat tinggal sementara</h2>
+			<form>
+			<p>Nama tempat</p><input type="text" name="nama" maxlength="32" oninput="" value="" required>
+			<p>Alamat</p><input type="text" name="alamat" maxlength="128" oninput="" value="" />
+			<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>
+			<p>Lama tinggal</p>
+			<p><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
+			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</p>
+			<input id="submit_kos" class="ui-button ui-widget ui-corner-all" type="submit" value="Selanjutnya">
+			</form>
+			</div>
+		</div>
+		
+		<br />
+		<script type="text/javascript">
+		$(function(){
+			$(".radio").checkboxradio();
+			$("select").selectmenu();
+			//$("input").autocomplete();
+			$("#daftar").submit(function(evt){
+			evt.preventDefault();
+			var pwd = $("#p1").val();
+			var hpwd = Sha256.hash(pwd);
+			console.log(hpwd);
+			console.log("("+hpwd.length+")")
+			$("#p1").val(hpwd);
+			$("#p2").val(hpwd);
+			//$.post("daftar", $("#daftar").serialize(), function(data, status, jqXHR){
+			//	alert(data);
+			//});
+			
+			});
+			/*
+			$( "#tl" ).datepicker({
+				changeMonth: true,
+				changeYear: true,
+				minDate: "-30Y",
+				maxDate: "-15Y"
+			});*/
+		});
+
+		</script>
+	</body>
+</html>
