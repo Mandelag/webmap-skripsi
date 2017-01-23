@@ -20,6 +20,9 @@
 	<div class="floating" id="informasi">
 		<p>Tandai kos/kontrakan/tempat tinggal sementara anda.</p>
 	</div>
+	<div class="floating" id="ubahAttribut" style="display:none">
+		<p>Tererereres</p>
+	</div>
 	
 	<div id="map" class="map">
 	</div>
@@ -28,7 +31,7 @@
 		<form class="attr" target="#">
 			<p>Nama tempat</p><input type="text" name="nama" maxlength="32" oninput="" value="" required>
 			<p>Alamat</p><input type="text" name="alamat" maxlength="128" oninput="" value="" />
-			<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>
+			<!--<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>-->
 			<p>Lama tinggal</p>
 			<p><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
 			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</p>
@@ -37,9 +40,90 @@
 	
 	<div id="makanFavoritAttribute" title="Isi Keterangan" class="ui-dialog"> <!-- untuk point -->
 		<p id="keterangan">Favorit #...</p>
-		<form class="attr" target="#">
+		<form id="attr_edit" class="attr" target="#">
 			<p>Nama</p><input type="text" name="nama" maxlength="50" oninput="" value="" />
-			<p>Review tempat</p><textarea rows="8" cols="30" name="keterangan" maxlength="1024" oninput="" required></textarea>
+			<p>Arahan menuju tempat ini</p>
+			<textarea rows="2" cols="30" name="keterangan" maxlength="512" oninput="" required></textarea>
+			<p>Biaya</p>
+			<table class="karakteristik">
+				<tr style="text-align:center;">
+					<td style="width:2em;">STS</td>
+					<td style="width:2em;">TS</td>
+					<td style="width:2em;">S</td>
+					<td style="width:2em;">SS</td>
+				</tr>
+				<tr style="text-align:center;">
+					<td style="width:2em;"> <input type="radio" name="harga" value="STS" /></td>
+					<td style="width:2em;"><input type="radio" name="harga" value="TS" /></td>
+					<td style="width:2em;"><input type="radio" name="harga" value="S" /></td>
+					<td style="width:2em;"><input type="radio" name="harga" value="SS" /></td>
+				</tr>
+			</table>
+
+			<p>Kenyamanan</p>
+				<table class="karakteristik">
+				<tr style="text-align:center;">
+					<td style="width:2em;">STS</td>
+					<td style="width:2em;">TS</td>
+					<td style="width:2em;">S</td>
+					<td style="width:2em;">SS</td>
+				</tr>
+				<tr style="text-align:center;">
+					<td style="width:2em;"> <input type="radio" name="kenyamanan" value="STS" /></td>
+					<td style="width:2em;"><input type="radio" name="kenyamanan" value="TS" /></td>
+					<td style="width:2em;"><input type="radio" name="kenyamanan" value="S" /></td>
+					<td style="width:2em;"><input type="radio" name="kenyamanan" value="SS" /></td>
+				</tr>
+			</table>
+			
+			<p>Aksesibilitas</p>
+			<table class="karakteristik">
+				<tr style="text-align:center;">
+					<td style="width:2em;">STS</td>
+					<td style="width:2em;">TS</td>
+					<td style="width:2em;">S</td>
+					<td style="width:2em;">SS</td>
+				</tr>
+				<tr style="text-align:center;">
+					<td style="width:2em;"> <input type="radio" name="akses" value="STS" /></td>
+					<td style="width:2em;"><input type="radio" name="akses" value="TS" /></td>
+					<td style="width:2em;"><input type="radio" name="akses" value="S" /></td>
+					<td style="width:2em;"><input type="radio" name="akses" value="SS" /></td>
+				</tr>
+			</table>
+			
+			<p>Fasilitas</p>
+			<table class="karakteristik">
+				<tr style="text-align:center;">
+					<td style="width:2em;">STS</td>
+					<td style="width:2em;">TS</td>
+					<td style="width:2em;">S</td>
+					<td style="width:2em;">SS</td>
+				</tr>
+				<tr style="text-align:center;">
+					<td style="width:2em;"> <input type="radio" name="fasilitas" value="STS" /></td>
+					<td style="width:2em;"><input type="radio" name="fasilitas" value="TS" /></td>
+					<td style="width:2em;"><input type="radio" name="fasilitas" value="S" /></td>
+					<td style="width:2em;"><input type="radio" name="fasilitas" value="SS" /></td>
+				</tr>
+			</table>
+			
+			<p>Penduduk</p>
+			<table class="karakteristik">
+				<tr style="text-align:center;">
+					<td style="width:2em;">STS</td>
+					<td style="width:2em;">TS</td>
+					<td style="width:2em;">S</td>
+					<td style="width:2em;">SS</td>
+				</tr>
+				<tr style="text-align:center;">
+					<td style="width:2em;"> <input type="radio" name="penduduk" value="STS" /></td>
+					<td style="width:2em;"><input type="radio" name="penduduk" value="TS" /></td>
+					<td style="width:2em;"><input type="radio" name="penduduk" value="S" /></td>
+					<td style="width:2em;"><input type="radio" name="penduduk" value="SS" /></td>
+				</tr>
+			</table>
+			<button onclick="validateAttribute()">OK</button>
 		</form>
 	</div>
 	
@@ -50,5 +134,9 @@
     </div>
 	
 	<script type="text/javascript" src="map.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+
 	</body>
 </html>

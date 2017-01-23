@@ -44,7 +44,7 @@
 			
 			<p>
 			Saya membutuhkan responden untuk memberikan informasi terkait <span style="font-weight:bold;">tempat tinggal sementara</span>,
-			dan <span style="font-weight:bold;">tempat makan favorit</span> kamu di sekitar Kampus UI Depok.
+			dan <span style="font-weight:bold;">tempat makan terfavorit</span> di sekitar Kampus UI Depok.
 			</p>
 			
 			<p>
@@ -130,17 +130,16 @@
 			$("select").selectmenu();
 			//$("input").autocomplete();
 			$("#daftar").submit(function(evt){
-			evt.preventDefault();
-			var pwd = $("#p1").val();
-			var hpwd = Sha256.hash(pwd);
-			console.log(hpwd);
-			console.log("("+hpwd.length+")")
-			$("#p1").val(hpwd);
-			$("#p2").val(hpwd);
-			//$.post("daftar", $("#daftar").serialize(), function(data, status, jqXHR){
-			//	alert(data);
-			//});
-			
+				evt.preventDefault();
+				var pwd = $("#p1").val();
+				var hpwd = Sha256.hash(pwd);
+				console.log(hpwd);
+				console.log("("+hpwd.length+")")
+				$("#p1").val(hpwd);
+				$("#p2").val(hpwd);
+				//$.post("daftar", $("#daftar").serialize(), function(data, status, jqXHR){
+				//	alert(data);
+				//});
 			});
 			/*
 			$( "#tl" ).datepicker({
