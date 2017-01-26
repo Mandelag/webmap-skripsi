@@ -102,7 +102,7 @@ var selectInteraction = new ol.interaction.Select({  //buka editor atribut apabi
 });
 
 var defaultSelectFunction = function(evt){	
-	if(evt.selected.length==1){
+	if(evt.selected.length == 1){
 		var feature = evt.selected[0];
 		var layerName = feature.get("layerName"); //unik di aplikasi ini aja.. karena yang buat juga pengguna (bukan fitur hasil import).
 		var sourceName = feature.get("sourceName");
@@ -307,7 +307,7 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 		if(attributDefault == "id") {
 			featureHasil.setId(defaultValue);
 		}else {
-		prop[attributDefault] = defaultValue;
+			prop[attributDefault] = defaultValue;
 			featureHasil.setId(COUNTER++);
 		}
 		prop['sourceName'] = source.getProperties()['variableName'];
@@ -315,7 +315,17 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 				
 		window.setTimeout(function () {
 			closeOverlay(true);
-			openAttributeEditorForm(source, featureHasil, callback);
+			
+			var formDialog;
+			if (source == kosSource) {
+				formDialog = $("#kosLayerAttribute");
+			} else /*if (layer == favoritSource)*/{
+				formDialog = $("#makanFavoritAttribute");
+				$("#keterangan").html("Favorit #"+featureHasil.getProperties()["peringkat"]);
+			}
+			
+			formDialog = openAttributeEditorForm2(source, featureHasil, formDialog, "updateAttribute", callback);
+			formDialog.dialog("open");
 		}, 100); //memastikan kalau atributnya sudah terpasang ketika membuka form ini.
 		map.removeInteraction(currentDrawInteraction);
 		callback("drawend");
@@ -326,61 +336,14 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 	closeOverlay(true);
 };
 
-
-function openAttributeEditorForm (source, feature, callback, msg) {
-	closeOverlay(true);
-	
-	/* populate the form */
-	var formDialog;
-	var formHtml;
-	//var feature = source.getFeatureById(id);
-	var id = feature.getId();
-	//console.log(feature);
-	
-	if (source == kosSource) {
-		formDialog = $("#kosLayerAttribute");
-		////formHtml = $("#kosLayerAttribute input, #kosLayerAttribute textarea");
-		//formHtml = formDialog.find("input, textarea");
-	} else /*if (layer == favoritSource)*/{
-		//dielse aja..
-		formDialog = $("#makanFavoritAttribute");
-		$("#keterangan").html("Favorit #"+feature.getProperties()["peringkat"]);
-		
-	}
-	
-	formHtml = formDialog.find("input, textarea");
-	formHtml.each(function (i, e) {
-		//formHtml.on("input", updateAttribute(e, layer.getSource(), id)); //ternyata jquery belom dukung ini.. jadi pake yang dibawah..
-		$(e).attr("oninput", "updateAttribute(this, "+source.getProperties()["variableName"]+", \""+id+"\")");
-		$(e).val("");
-		if(feature != null) { //jika baru dibuat masih null..
-			var props = feature.getProperties();
-			var name = $(e).attr("name");
-			$(e).val(props[name]);
-		}
-	});
-	
-	/* lupa lagi ini untuk apa.. */
-	if(typeof callback === "undefined") {
-		//console.log("callback undefined");
-	}else {
-		formDialog.on("dialogclose", function(evt){
-			evt.preventDefault();
-			callback("finish");
-			formDialog.off("dialogclose");
-			formDialog.on("dialogclose", defaultDialogClose);
-		});
-	}
-	formDialog.dialog("open");
-}
-
 /* v2 */
-function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback) {
+function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, callback=undefined) {
 	var id = feature.getId();
 	//var callback = "updateAttribute"; //bisa jadi param..
 	
 	var cb = stringCallback+"(this, "+source.getProperties()["variableName"]+", \""+id+"\")";
 	
+	var props = feature.getProperties();
 	var attribs = source.getProperties()["attributes"];
 	console.log(attribs);
 	
@@ -392,6 +355,8 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback) 
 		
 		if(inputElSize > 0 ) {
 			if(inputElSize == 1 ) { //
+				console.log(inputEl);
+				inputEl.val(props[attrib]);
 				inputEl.attr("onchange", cb);
 				//inputEl.val("");
 			} else if(inputElSize > 1){  // for checkbox or radio button 
@@ -399,6 +364,12 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback) 
 				inputEl.attr("onclick", "alert('not implemented yet')");
 			}
 		}
+	}
+	
+	if(!(typeof callback === "undefined")) {
+		//console.log(typeof callback);
+		callback("finish");
+		console.log("koorubeku");
 	}
 	
 	return jQueryForm; //formDialog.dialog("open");
@@ -449,11 +420,11 @@ var defaultDialogClose = function(event, ui) {
 }
 
 function validateAttribute(evt, ui){
-			$("#attr_edit").submit(function(evt){
-				evt.preventDefault();
-				$("#makanFavoritAttribute").dialog("close");
-			});
-		}
+	$("#attr_edit").submit(function(evt){
+		evt.preventDefault();
+		$("#makanFavoritAttribute").dialog("close");
+	});
+}
 
 $("#kosLayerAttribute").dialog({
 	autoOpen: false,
@@ -647,8 +618,8 @@ function fav2Finish (msg){
 	}else if(msg == "finish") {
 		$("#tmain").off("click");
 		console.log("FINISH!");
-		//selesai();
-		fav3Idle();
+		selesai(); //temporary
+		//fav3Idle();
 	}
 };
 
