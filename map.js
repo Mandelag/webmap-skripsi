@@ -8,6 +8,7 @@ $(function () {
 /**********************
  * MAP RELATED AMANNN *
  **********************/
+/* sources */
 
 //id counter perlu karena ubah atribut nanti pakai getId
 var COUNTER=0;  //nantinya id ini harusnya dibedakan per source.
@@ -17,6 +18,7 @@ var favoritSource = new ol.source.Vector({});
 
 kosSource.setProperties({
 	variableName: "kosSource",
+	idCounter: 0,
 	name: "Tempat tinggal",
 	type: "Point",
 	attributes: ['nama', 'alamat', 'lama_bulan', 'lama_hari']
@@ -24,15 +26,16 @@ kosSource.setProperties({
 
 favoritSource.setProperties({
 	variableName: "favoritSource",
+	idCounter: 0,
 	name: "Tempat makan",
 	type: "Point",
 	attributes: ['peringkat', 'nama', 'keterangan', 'harga', 'kenyamanan', 'akses', 'fasilitas', 'penduduk']
 });
 
-var kosLayer = new ol.layer.Vector({
-	name: "kosLayer",
-	source: kosSource,
-	style: function (feature, zl){
+/* layers */
+
+var styleFunction = function (stringColor){
+	var resultFunction = new function(feature, zl){
 		var radius;
 		if(zl < 0.3) {
 			radius = 16;
@@ -45,9 +48,9 @@ var kosLayer = new ol.layer.Vector({
 		var style = new ol.style.Style({
 			image: new ol.style.Circle({
 			radius: radius,
-            fill: new ol.style.Fill({
-				color: '#ff3333'
-            }),
+			fill: new ol.style.Fill({
+				color: stringColor
+			}),
 			stroke: new ol.style.Stroke({
 				color: '#aaa',
 				width: 1
@@ -55,35 +58,20 @@ var kosLayer = new ol.layer.Vector({
 			})
 		})
 		return style;
-		}
+	}
+	return resultFunction;
+};
+
+var kosLayer = new ol.layer.Vector({
+	name: "kosLayer",
+	source: kosSource,
+	style: styleFunction('#e63')
 });
 
 var favoritLayer = new ol.layer.Vector({
 	name: "favoritLayer",
 	source: favoritSource,
-	style: function(feature, zl) {
-		var radius;
-		if(zl < 0.3) {
-			radius = 16;
-		}else if(zl > 2){
-			radius = 12;
-		}else {
-			radius = 14;
-		}
-		var style = new ol.style.Style({
-			image: new ol.style.Circle({
-				radius: radius,
-				stroke: new ol.style.Stroke({
-					color: '#aaa',
-					width: 1,
-				}),
-				fill: new ol.style.Fill({
-					color: '#aaffbb'
-				})
-			})
-		});
-		return style;
-	}
+	style: styleFunction('#6e6')
 });
 
 var osmLayer = new ol.layer.Tile({
@@ -103,6 +91,47 @@ var surveyLayer = new ol.layer.Tile({
 	})
 });
 
+/* interactions */
+
+var currentDrawInteraction;
+
+var selectInteraction = new ol.interaction.Select({  //buka editor atribut apabila fitur di klik.
+	layers: [kosLayer, favoritLayer],
+	toggleCondition: ol.events.condition.never, // disable multiple selection.
+	//filter: defaultSelectFilterFunction
+});
+
+var defaultSelectFunction = function(evt){	
+	if(evt.selected.length==1){
+		var feature = evt.selected[0];
+		var layerName = feature.get("layerName"); //unik di aplikasi ini aja.. karena yang buat juga pengguna (bukan fitur hasil import).
+		var sourceName = feature.get("sourceName");
+		var source = getSourceByName(sourceName);
+		
+		if(evt.deselected.length==0){ //klik fitur baru dari tadinya kosong.
+			$(container).css("opacity",0);
+			openAttributeOverlay(source, feature, source.getProperties()['name']);
+			overlay.setPosition(feature.getGeometry().getCoordinates());
+			$(container).animate({opacity: 1},100, "swing", function(){});
+			//$(container).fadeIn(200);		
+		}else if(evt.deselected.length >= 1) { //klik fitur baru dari tadinya fitur lain.
+			$(container).animate({opacity: 0},100, "swing", function(){	
+				overlay.setPosition(undefined);
+				openAttributeOverlay(source, feature);
+				$(container).animate({opacity: 1},100, "swing", function(){	
+					overlay.setPosition(evt.selected[0].getGeometry().getCoordinates());
+				});
+			});
+		}
+	}else{
+		closeOverlay(true);
+	}
+}
+//selectInteraction.on('select', defaultSelectFunction);
+
+
+/* main map */
+
 var minx = ol.proj.transform([106.81, -6.375], 'EPSG:4326', 'EPSG:3857');
 var maxx = ol.proj.transform([106.844, -6.355], 'EPSG:4326', 'EPSG:3857');
 
@@ -118,7 +147,14 @@ var map = new ol.Map ({
 	})
 });
 
+/* overlay */
+/* attribute container */
 var container = document.getElementById("popup");
+
+$("#popup-closer").on("click", function(){
+	closeOverlay(true);
+});
+
 var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
 	element: container,
 	autoPan: true,
@@ -127,62 +163,50 @@ var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
 	}
 }));
 
-map.addOverlay(overlay);
-
-$("#popup-closer").on("click", function(){	
-	selectInteraction.dispatchEvent({
-		type: "select",
-		deselected: selectInteraction.getFeatures().getArray(),
-		selected: []
+function closeOverlay(unselect){
+	$(container).animate({opacity: 0},200, "swing", function(){	
+			overlay.setPosition(undefined);
 	});
+	/*
+	if(unselect){
+		var incols = map.getInteractions();
+		var incol;
+		incols.forEach(function(el,ind,ar){
+			if ( el instanceof ol.interaction.Select){
+				el.dispatchEvent({
+					type: "select",
+					deselected: selectInteraction.getFeatures().getArray(),
+					selected: []
+				});
+				el.getFeatures().clear();
+			}
+		});
+	}
+	*/
 	selectInteraction.getFeatures().clear();
-});
-
-function getSourceGeoJSON(source) {
-	var gj = new ol.format.GeoJSON(); //kasih proyeksi nanti..epsg:4326
-	return gj.writeFeatures(source.getFeatures());
 }
+
+
+map.addOverlay(overlay);
+//map.addInteraction(selectInteraction);
+noEdit();
+
+
+
 
 /********************
  * map related done *
  ********************/
 
-var selectInteraction = new ol.interaction.Select({  //buka editor atribut apabila fitur di klik.
-	layers: [kosLayer, favoritLayer],
-	toggleCondition: ol.events.condition.never, // disable multiple selection.
-	//filter: defaultSelectFilterFunction
-});
-var onSelectFunction = function(evt){	
-	if(evt.selected.length==1){
-		var feature = evt.selected[0];
-		var layerName = feature.get("layerName"); //unik di aplikasi ini aja.. karena yang buat juga pengguna (bukan fitur hasil import).
-		//console.log(feature);
-		//console.log(layerName);
-		
-		var sourceName = feature.get("sourceName");
-		var source = getSourceByName(sourceName);
-		
-		if(evt.deselected.length==0){
-			$(container).css("opacity",0);
-			openAttributeOverlay(source, feature, source.getProperties()['name']);
-			overlay.setPosition(feature.getGeometry().getCoordinates());
-			$(container).animate({opacity: 1},100, "swing", function(){});
-			//$(container).fadeIn(200);		
-		}else if(evt.deselected.length >= 1) {
-			$(container).animate({opacity: 0},100, "swing", function(){	
-				overlay.setPosition(undefined);
-				openAttributeOverlay(source, feature);
-				$(container).animate({opacity: 1},100, "swing", function(){	
-					overlay.setPosition(evt.selected[0].getGeometry().getCoordinates());
-				});
-			});
-		}
-	}else{
-		closeOverlay();
-	}
-}
-selectInteraction.on('select', onSelectFunction);
 
+
+
+/*
+ * 
+ * Attribute overlay yang muncul ketika fitur diklik.
+ * Attribute yang muncul hanya ditampilkan, tidak bisa diubah.
+ * 
+ */
 function openAttributeOverlay (source, feature, msg) {
 	$("#popup-title").html(msg);
 	var containerHtml = $("#popup-content");
@@ -213,8 +237,8 @@ function openAttributeOverlay (source, feature, msg) {
 	buttonEdit.css("margin","0");
 	buttonEdit.on("click", function(){
 		
-		map.removeInteraction(selectInteraction);	
-		closeOverlay();
+		//map.removeInteraction(selectInteraction);	
+		closeOverlay(true);
 		var formDialog;
 		
 		if (source == kosSource) {
@@ -235,12 +259,7 @@ function openAttributeOverlay (source, feature, msg) {
 	containerHtml.append(buttonEdit);
 }
 
-function closeOverlay(){
-	$(container).animate({opacity: 0},100, "swing", function(){	
-			overlay.setPosition(undefined);
-	});
-	selectInteraction.getFeatures().clear();
-}
+
 
 function getSourceByName(sourceName) {
 	var source;
@@ -255,18 +274,18 @@ function getSourceByName(sourceName) {
 	return source;
 }
 
-map.addInteraction(selectInteraction);
-
-noEdit();
-var currentDrawInteraction;
-
-
 function noEdit() {
 	$(".draw").prop('disabled', false);	
 	map.removeInteraction(currentDrawInteraction);
 	currentDrawInteraction = null;
 }
 
+/**
+ *
+ * menambahkan interaksi 'draw' di peta pada source tertentu.
+ * Setelah selesai akan memanggil callback(str)
+ * 
+ */
 function draw(attributDefault, defaultValue, source, callback) { //dari html manggil variabel langsung.
 	
 	selectInteraction.getFeatures().clear();
@@ -276,9 +295,7 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 		source: source,
 		type: source.getProperties()['type']
 	});
-	
-	//map.removeInteraction(selectInteraction);
-	
+		
 	currentDrawInteraction.on('drawend', function(evt){	
 		var featureHasil = evt.feature;
 		var prop = {};
@@ -297,7 +314,7 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 		featureHasil.setProperties(prop); 
 				
 		window.setTimeout(function () {
-			closeOverlay();
+			closeOverlay(true);
 			openAttributeEditorForm(source, featureHasil, callback);
 		}, 100); //memastikan kalau atributnya sudah terpasang ketika membuka form ini.
 		map.removeInteraction(currentDrawInteraction);
@@ -306,13 +323,12 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 		
 	map.addInteraction(currentDrawInteraction); /* tambahkan interaction sesuai dengan source */
 	//map.addInteraction(snapInteraction);
-	closeOverlay();
+	closeOverlay(true);
 };
 
 
 function openAttributeEditorForm (source, feature, callback, msg) {
-	map.removeInteraction(selectInteraction);	
-	closeOverlay();
+	closeOverlay(true);
 	
 	/* populate the form */
 	var formDialog;
@@ -331,8 +347,6 @@ function openAttributeEditorForm (source, feature, callback, msg) {
 		$("#keterangan").html("Favorit #"+feature.getProperties()["peringkat"]);
 		
 	}
-	
-	
 	
 	formHtml = formDialog.find("input, textarea");
 	formHtml.each(function (i, e) {
@@ -381,8 +395,8 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback) 
 				inputEl.attr("onchange", cb);
 				//inputEl.val("");
 			} else if(inputElSize > 1){  // for checkbox or radio button 
-				inputEl.attr("onchange", cb);
-				//inputEl.attr("onchange", "alert('not implemented yet')");
+				//inputEl.attr("onchange", cb);
+				inputEl.attr("onclick", "alert('not implemented yet')");
 			}
 		}
 	}
@@ -390,6 +404,9 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback) 
 	return jQueryForm; //formDialog.dialog("open");
 }
 
+/* 
+ * Fungsi ini dipanggil oleh DOM event ketika mengisi form input attribute editor. 
+ */
 function updateAttribute(input, source, featureId) {
 	var inputForm = $(input);
 	var feature = source.getFeatureById(featureId);
@@ -405,6 +422,11 @@ function updateAttribute(input, source, featureId) {
 
 }
 
+
+
+/*******************
+ * LOGIC APPLIKASI *
+ *******************/
 function formSubmit() {
 	var gjsWriter = new ol.format.GeoJSON({
 		defaultDataProjection:"EPSG:3857"
@@ -419,13 +441,10 @@ function formSubmit() {
 	$("#timestamp_mulai").val(waktuMulaiServer);
 }
 
-/*******************
- * LOGIC APPLIKASI *
- *******************/
 
 var defaultDialogClose = function(event, ui) {
-	map.addInteraction(selectInteraction);
-	closeOverlay();
+	//map.addInteraction(selectInteraction);
+	closeOverlay(true);
 	selectInteraction.getFeatures().clear();
 }
 
@@ -584,6 +603,7 @@ function fav1Finish (msg){
 	}else if(msg == "finish") {
 		$("#tmain").off("click");
 		console.log("FINISH!");
+		//selesai(); //jump. nanti diganti.
 		fav2Idle();
 	}
 };
@@ -627,6 +647,7 @@ function fav2Finish (msg){
 	}else if(msg == "finish") {
 		$("#tmain").off("click");
 		console.log("FINISH!");
+		//selesai();
 		fav3Idle();
 	}
 };
@@ -678,6 +699,10 @@ function selesai () {
 	//editInfoText(selesaiMsg);
 	$("#tmain").html("<a>&gt;</a>");
 	$("#tmain").css("background-color", "#cec");
+	
+	
+	selectInteraction.on('select', defaultSelectFunction);
+	map.addInteraction(selectInteraction);
 }
 
 
@@ -714,3 +739,8 @@ window.onbeforeunload = function(evt) {
 
 /* mulai aplikasi */
 kosIdle();
+
+function getSourceGeoJSON(source) {
+	var gj = new ol.format.GeoJSON(); //kasih proyeksi nanti..epsg:4326
+	return gj.writeFeatures(source.getFeatures());
+}
