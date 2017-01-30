@@ -350,18 +350,31 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 	for(i=0;i<attribs.length;i++){
 		var attrib = attribs[i];
 		var inputEl = jQueryForm.find("[name='"+attrib+"']");
-		console.log(inputEl);
+		//console.log(inputEl);
 		var inputElSize = inputEl.length;
 		
 		if(inputElSize > 0 ) {
 			if(inputElSize == 1 ) { //
-				console.log(inputEl);
+				//console.log(inputEl);
 				inputEl.val(props[attrib]);
-				inputEl.attr("onchange", cb);
+				inputEl.attr("oninput", cb);
 				//inputEl.val("");
 			} else if(inputElSize > 1){  // for checkbox or radio button 
-				//inputEl.attr("onchange", cb);
-				inputEl.attr("onclick", "alert('not implemented yet')");
+				inputEl.attr("onchange", cb);
+				//inputEl.attr("onclick", "alert('not implemented yet')");
+				
+				//implemented for radio button only..
+				console.log(inputEl);
+				var radioop = [];
+				inputEl.each(function(i, el){
+					console.log(props[attrib] + " == " + $(this).val());
+					if(props[attrib] == $(this).val()){
+						$(this).prop("checked", true);
+					}else {
+						$(this).prop("checked", false);
+					}
+				});
+				
 			}
 		}
 	}
