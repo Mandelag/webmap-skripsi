@@ -137,7 +137,7 @@ var maxx = ol.proj.transform([106.844, -6.355], 'EPSG:4326', 'EPSG:3857');
 
 var map = new ol.Map ({
 	target : "map",
-	layers : [/*surveyLayer,*/ favoritLayer, kosLayer],
+	layers : [/*surveyLayer,*/ osmLayer, favoritLayer, kosLayer],
 	view : new ol.View({
 		minZoom: 14,
 		maxZoom: 19,
@@ -239,19 +239,19 @@ function openAttributeOverlay (source, feature, msg) {
 		
 		//map.removeInteraction(selectInteraction);	
 		closeOverlay(true);
-		var formDialog;
+		var containerDialog;
 		
 		if (source == kosSource) {
-			formDialog = $("#kosLayerAttribute");
+			containerDialog = $("#kosLayerAttribute");
 		} else /*if (layer == favoritSource)*/{
-			formDialog = $("#makanFavoritAttribute");
+			containerDialog = $("#makanFavoritAttribute");
 			$("#keterangan").html("Favorit #"+feature.getProperties()["peringkat"]);
 		}
 		
 		//openAttributeEditorForm(source, feature);
-		formDialog = openAttributeEditorForm2(source, feature, formDialog, "updateAttribute");
+		formDialog = openAttributeEditorForm2(source, feature, containerDialog, "updateAttribute");
 		
-		formDialog.dialog("open");
+		containerDialog.dialog("open");
 	});
 	
 	//var buttonMove nanti ada lagi buat mindahin fitur.
@@ -336,7 +336,9 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 	closeOverlay(true);
 };
 
-/* v2 */
+/* v2 
+ * jQueryForm is more like dialog container.. usually div, not form element
+ * */
 function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, callback=undefined) {
 	var id = feature.getId();
 	//var callback = "updateAttribute"; //bisa jadi param..
@@ -361,8 +363,7 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 				//inputEl.val("");
 			} else if(inputElSize > 1){  // for checkbox or radio button 
 				inputEl.attr("onchange", cb);
-				//inputEl.attr("onclick", "alert('not implemented yet')");
-				
+
 				//implemented for radio button only..
 				console.log(inputEl);
 				var radioop = [];
@@ -378,14 +379,20 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 			}
 		}
 	}
+	var buttonSubmit = $('<button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>');
 	
-	if(!(typeof callback === "undefined")) {
-		//console.log(typeof callback);
-		callback("finish");
-		console.log("koorubeku");
-	}
+	jQueryForm.children("form").on('submit', function(evt){
+		evt.preventDefault();
+		buttonSubmit.remove()
+		jQueryForm.dialog("close");		
+		if(!(typeof callback === "undefined")) {
+			callback("finish");
+		}
+	});
 	
-	return jQueryForm; //formDialog.dialog("open");
+	jQueryForm.children("form").append(buttonSubmit);
+
+	return jQueryForm;
 }
 
 /* 
@@ -403,7 +410,6 @@ function updateAttribute(input, source, featureId) {
 	//console.log(gj.writeFeatures(source.getFeatures()));
 	feature.setProperties(propBaru);	
 	console.log(feature.getProperties());
-
 }
 
 
@@ -432,10 +438,18 @@ var defaultDialogClose = function(event, ui) {
 	selectInteraction.getFeatures().clear();
 }
 
-function validateAttribute(evt, ui){
+function validateAttribute(ui){
 	$("#attr_edit").submit(function(evt){
 		evt.preventDefault();
 		$("#makanFavoritAttribute").dialog("close");
+	});
+}
+
+function validateAttribute2(dialogId, formId, callback){
+	$("#"+formId).submit(function(evt){
+		evt.preventDefault();
+		$("#"+dialogId).dialog("close");
+		callback("finish");
 	});
 }
 
@@ -452,12 +466,12 @@ $("#kosLayerAttribute").dialog({
 	hide: {
 		effect: "fade",
 		duration: 300
-	},
-	buttons: {
-		OK: function() {
-			$( this ).dialog( "close" );
-		}
-	}
+	}//,
+	//buttons: {
+	//	OK: function() {
+	//		$( this ).dialog( "close" );
+	//	}
+	//}
 });
 
 $("#makanFavoritAttribute").dialog({
@@ -604,7 +618,7 @@ function fav2Idle (){
 
 function fav2Draw (){
 	console.log("draw!");
-		editInfoText(fav2DrawMsg);
+	editInfoText(fav2DrawMsg);
 
 	$("#tmain").addClass("active");
 	
@@ -680,7 +694,7 @@ function fav3Finish (msg){
 };
 
 function selesai () {
-	//editInfoText(selesaiMsg);
+	editInfoText(selesaiMsg);
 	$("#tmain").html("<a>&gt;</a>");
 	$("#tmain").css("background-color", "#cec");
 	
