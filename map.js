@@ -458,10 +458,11 @@ function validateAttribute2(dialogId, formId, callback){
 
 $("#kosLayerAttribute").dialog({
 	autoOpen: false,
+	dialogClass: "no-close",
 	height: "auto",
 	resizable : false,
 	modal: true,
-	close: defaultDialogClose,
+	//close: defaultDialogClose,
 	show: {
 		effect: "fade",
 		duration: 300
