@@ -167,28 +167,11 @@ function closeOverlay(unselect){
 	$(container).animate({opacity: 0},200, "swing", function(){	
 			overlay.setPosition(undefined);
 	});
-	/*
-	if(unselect){
-		var incols = map.getInteractions();
-		var incol;
-		incols.forEach(function(el,ind,ar){
-			if ( el instanceof ol.interaction.Select){
-				el.dispatchEvent({
-					type: "select",
-					deselected: selectInteraction.getFeatures().getArray(),
-					selected: []
-				});
-				el.getFeatures().clear();
-			}
-		});
-	}
-	*/
 	selectInteraction.getFeatures().clear();
 }
 
 
 map.addOverlay(overlay);
-//map.addInteraction(selectInteraction);
 noEdit();
 
 
@@ -237,7 +220,6 @@ function openAttributeOverlay (source, feature, msg) {
 	buttonEdit.css("margin","0");
 	buttonEdit.on("click", function(){
 		
-		//map.removeInteraction(selectInteraction);	
 		closeOverlay(true);
 		var containerDialog;
 		
@@ -248,14 +230,12 @@ function openAttributeOverlay (source, feature, msg) {
 			$("#keterangan").html("Favorit #"+feature.getProperties()["peringkat"]);
 		}
 		
-		//openAttributeEditorForm(source, feature);
 		formDialog = openAttributeEditorForm2(source, feature, containerDialog, "updateAttribute");
 		
 		containerDialog.dialog("open");
 	});
 	
 	//var buttonMove nanti ada lagi buat mindahin fitur.
-	
 	containerHtml.append(buttonEdit);
 }
 
@@ -341,7 +321,6 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
  * */
 function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, callback=undefined) {
 	var id = feature.getId();
-	//var callback = "updateAttribute"; //bisa jadi param..
 	
 	var cb = stringCallback+"(this, "+source.getProperties()["variableName"]+", \""+id+"\")";
 	
@@ -352,12 +331,10 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 	for(i=0;i<attribs.length;i++){
 		var attrib = attribs[i];
 		var inputEl = jQueryForm.find("[name='"+attrib+"']");
-		//console.log(inputEl);
 		var inputElSize = inputEl.length;
 		
 		if(inputElSize > 0 ) {
 			if(inputElSize == 1 ) { //
-				//console.log(inputEl);
 				inputEl.val(props[attrib]);
 				inputEl.attr("oninput", cb);
 				//inputEl.val("");
@@ -470,12 +447,7 @@ $("#kosLayerAttribute").dialog({
 	hide: {
 		effect: "fade",
 		duration: 300
-	}//,
-	//buttons: {
-	//	OK: function() {
-	//		$( this ).dialog( "close" );
-	//	}
-	//}
+	}
 });
 
 $("#makanFavoritAttribute").dialog({
@@ -484,12 +456,6 @@ $("#makanFavoritAttribute").dialog({
 	height: "auto",
 	resizable : false,
 	modal: true,
-	//close: function(evt, ui){
-	//		evt.preventDefault();
-	//		$("#makanfavoritAttribute").dialog("open");
-			//alert('hwhw');
-			//validateAttribute(evt,ui);
-	//	},
 	show: {
 		effect: "fade",
 		duration: 300
@@ -498,12 +464,7 @@ $("#makanFavoritAttribute").dialog({
 	hide: {
 		effect: "fade",
 		duration: 300
-	}//,
-	//buttons: {
-	//	OK: function() {
-	//		$( this ).dialog( "close" );
-	//	}
-	//}
+	}
 });
 
 
@@ -555,7 +516,6 @@ function kosCancel (){
 }
 
 function kosFinish (msg){
-	//console.log("kos finish "+msg);
 	if(msg == "drawend") {
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
@@ -598,7 +558,6 @@ function fav1Cancel (){
 }
 
 function fav1Finish (msg){
-	//console.log("kos finish "+msg);
 	if(msg == "drawend") {
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
@@ -642,7 +601,6 @@ function fav2Cancel (){
 }
 
 function fav2Finish (msg){
-	//console.log("kos finish "+msg);
 	if(msg == "drawend") {
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
@@ -686,7 +644,6 @@ function fav3Cancel (){
 }
 
 function fav3Finish (msg){
-	//console.log("kos finish "+msg);
 	if(msg == "drawend") {
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
@@ -700,7 +657,7 @@ function fav3Finish (msg){
 function selesai () {
 	editInfoText(selesaiMsg);
 	$("#tmain").html("<a>&gt;</a>");
-	$("#tmain").css("background-color", "#cec");
+	$("#tmain").css("background-color", "#bdb");
 	
 	
 	selectInteraction.on('select', defaultSelectFunction);
