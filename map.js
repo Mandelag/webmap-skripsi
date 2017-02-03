@@ -383,11 +383,14 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 	
 	jQueryForm.children("form").on('submit', function(evt){
 		evt.preventDefault();
-		buttonSubmit.remove()
+		
 		jQueryForm.dialog("close");		
 		if(!(typeof callback === "undefined")) {
+			console.log("hmm... kok not undefined");
 			callback("finish");
 		}
+		jQueryForm.children("form").off('submit');
+		buttonSubmit.remove()
 	});
 	
 	jQueryForm.children("form").append(buttonSubmit);
