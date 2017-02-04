@@ -229,7 +229,7 @@ function openAttributeOverlay (source, feature, msg) {
 	//line.css("width", "100%");
 	line.css("margin","auto");
 	var buttonEdit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Ubah Atribut</button>');
-	var buttonMove = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Pindahkan</button>');
+	var buttonMove = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pin-s" style="zoom: 100%;"></span> Pindahkan</button>');
 	
 	buttonEdit.on("click", function(){
 		
@@ -256,18 +256,28 @@ function openAttributeOverlay (source, feature, msg) {
 		});
 		
 		modifyInteraction.on("modifyend", function(evt){
+			$(container).animate({opacity: 1},100, "swing", function(){
+				
+				});
 			overlayGeser.setPosition(feature.getGeometry().getCoordinates());
 		});
 		
+		modifyInteraction.on("modifystart", function(evt){
+			overlayGeser.setPosition(undefined);
+		});
+		
 		$(containerGeser).empty();
-		var doneButton = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>Selesai</button>');
+		var info = $('<p>Klik dan geser untuk memindahkan fitur</p>');
+		var doneButton = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>Selesai</button>');
 		doneButton.on("click", function(evt){
 			overlayGeser.setPosition(undefined);
 			map.removeInteraction(modifyInteraction);
 			map.addInteraction(selectInteraction);
 		});
+		$(containerGeser).append(info);
 		$(containerGeser).append(doneButton);
-		
+		overlayGeser.setPosition(feature.getGeometry().getCoordinates());
+
 		
 		map.removeInteraction(selectInteraction);
 		map.addInteraction(modifyInteraction);
@@ -398,7 +408,7 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 			}
 		}
 	}
-	var buttonSubmit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>');
+	var buttonSubmit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>OK</button>');
 	
 	jQueryForm.children("form").on('submit', function(evt){
 		evt.preventDefault();
