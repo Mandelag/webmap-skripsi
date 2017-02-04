@@ -129,6 +129,7 @@ var defaultSelectFunction = function(evt){
 }
 //selectInteraction.on('select', defaultSelectFunction);
 
+var modifyInteraction;
 
 /* main map */
 
@@ -247,15 +248,38 @@ function openAttributeOverlay (source, feature, msg) {
 		containerDialog.dialog("open");
 	});
 	
-	buttonMove.on("click", function(){
+	buttonMove.on("click", function(evt){
 		closeOverlay(true);
-		console.log("not implemented yet.");
+		
+		modifyInteraction = new ol.interaction.Modify({
+			features: new ol.Collection([feature])
+		});
+		
+		modifyInteraction.on("modifyend", function(evt){
+			overlayGeser.setPosition(feature.getGeometry().getCoordinates());
+		});
+		
+		$(containerGeser).empty();
+		var doneButton = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>Selesai</button>');
+		doneButton.on("click", function(evt){
+			overlayGeser.setPosition(undefined);
+			map.removeInteraction(modifyInteraction);
+			map.addInteraction(selectInteraction);
+		});
+		$(containerGeser).append(doneButton);
+		
+		
+		map.removeInteraction(selectInteraction);
+		map.addInteraction(modifyInteraction);
+		
+		//console.log("not implemented yet.");
 	});
 	
 	line.append(buttonMove);
 	line.append(buttonEdit);
 	containerHtml.append(line);
 }
+
 
 
 
