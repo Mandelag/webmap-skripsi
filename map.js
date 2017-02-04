@@ -150,6 +150,7 @@ var map = new ol.Map ({
 /* overlay */
 /* attribute container */
 var container = document.getElementById("popup");
+var containerGeser = document.getElementById("popup-geser");
 
 $("#popup-closer").on("click", function(){
 	closeOverlay(true);
@@ -157,6 +158,14 @@ $("#popup-closer").on("click", function(){
 
 var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
 	element: container,
+	autoPan: true,
+	autoPanAnimation: {
+		duration: 250
+	}
+}));
+
+var overlayGeser = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+	element: containerGeser,
 	autoPan: true,
 	autoPanAnimation: {
 		duration: 250
@@ -172,6 +181,7 @@ function closeOverlay(unselect){
 
 
 map.addOverlay(overlay);
+map.addOverlay(overlayGeser);
 noEdit();
 
 
@@ -214,10 +224,12 @@ function openAttributeOverlay (source, feature, msg) {
 	containerHtml.append(table);
 	containerHtml.append("<br />");
 
-	var buttonEdit = $('<p><button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Edit</button></p>');
-	buttonEdit.css("width","100%");
-	buttonEdit.css("text-align","right");
-	buttonEdit.css("margin","0");
+	var line = $('<div></div>');
+	//line.css("width", "100%");
+	line.css("margin","auto");
+	var buttonEdit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Ubah Atribut</button>');
+	var buttonMove = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Pindahkan</button>');
+	
 	buttonEdit.on("click", function(){
 		
 		closeOverlay(true);
@@ -235,8 +247,14 @@ function openAttributeOverlay (source, feature, msg) {
 		containerDialog.dialog("open");
 	});
 	
-	//var buttonMove nanti ada lagi buat mindahin fitur.
-	containerHtml.append(buttonEdit);
+	buttonMove.on("click", function(){
+		closeOverlay(true);
+		console.log("not implemented yet.");
+	});
+	
+	line.append(buttonMove);
+	line.append(buttonEdit);
+	containerHtml.append(line);
 }
 
 
@@ -356,7 +374,7 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 			}
 		}
 	}
-	var buttonSubmit = $('<button class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>');
+	var buttonSubmit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>');
 	
 	jQueryForm.children("form").on('submit', function(evt){
 		evt.preventDefault();
@@ -657,8 +675,7 @@ function fav3Finish (msg){
 function selesai () {
 	editInfoText(selesaiMsg);
 	$("#tmain").html("<a>&gt;</a>");
-	$("#tmain").css("background-color", "#bdb");
-	
+	$("#tmain").css("background-color", "rgba(0, 256, 0, 0.6)");
 	
 	selectInteraction.on('select', defaultSelectFunction);
 	map.addInteraction(selectInteraction);

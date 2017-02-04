@@ -29,7 +29,7 @@
 
 	<div id="kosLayerAttribute" title="Isi Keterangan" class="ui-dialog"> <!-- untuk point -->
 		<form class="attr" target="#">
-			<p>Nama tempat</p><input type="text" name="nama" maxlength="32" oninput="" value="" required>
+			<p>Nama tempat</p><input type="text" name="nama" maxlength="32" oninput="" value="" >
 			<p>Alamat</p><input type="text" name="alamat" maxlength="128" oninput="" value="" />
 			<!--<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>-->
 			<p>Lama tinggal</p>
@@ -43,7 +43,7 @@
 		<form id="attr_edit" class="attr" target="#">
 			<p>Nama</p><input type="text" name="nama" maxlength="50" oninput="" value="" />
 			<p>Arahan menuju tempat ini</p>
-			<textarea rows="2" cols="30" name="keterangan" maxlength="512" oninput="" required></textarea>
+			<textarea rows="2" cols="30" name="keterangan" maxlength="512" oninput="" ></textarea>
 			<p>Biaya</p>
 			<table class="karakteristik">
 				<tr style="text-align:center;">
@@ -132,6 +132,9 @@
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <h1 id="popup-title">Keterangan</h1>
 	  <div id="popup-content"></div>
+    </div>
+    
+    <div id="popup-geser" class="ol-popup">
     </div>
 	
 	<script type="text/javascript" src="map.js"></script>
