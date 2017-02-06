@@ -225,10 +225,10 @@ function openAttributeOverlay (source, feature, msg) {
 	containerHtml.append(table);
 	containerHtml.append("<br />");
 
-	var line = $('<div></div>');
+	var line = $('<div style="width:100%"></div>');
 	//line.css("width", "100%");
 	line.css("margin","auto");
-	var buttonEdit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Ubah Atribut</button>');
+	var buttonEdit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Ubah Info</button>');
 	var buttonMove = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pin-s" style="zoom: 100%;"></span> Pindahkan</button>');
 	
 	buttonEdit.on("click", function(){
@@ -267,7 +267,7 @@ function openAttributeOverlay (source, feature, msg) {
 		});
 		
 		$(containerGeser).empty();
-		var info = $('<p>Klik dan geser untuk memindahkan fitur</p>');
+		var info = $('<p>Klik dan geser</p>');
 		var doneButton = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>Selesai</button>');
 		doneButton.on("click", function(evt){
 			overlayGeser.setPosition(undefined);
@@ -489,6 +489,8 @@ $("#kosLayerAttribute").dialog({
 	autoOpen: false,
 	dialogClass: "no-close",
 	height: "auto",
+	width: "90%",
+	maxWidth: "350px",
 	resizable : false,
 	modal: true,
 	//close: defaultDialogClose,
@@ -506,6 +508,8 @@ $("#makanFavoritAttribute").dialog({
 	autoOpen: false,
 	dialogClass: "no-close",
 	height: "auto",
+	width: "90%",
+	maxWidth: "350px",
 	resizable : false,
 	modal: true,
 	show: {
@@ -519,6 +523,24 @@ $("#makanFavoritAttribute").dialog({
 	}
 });
 
+$("#identitas").dialog({
+	autoOpen: false,
+	dialogClass: "no-close",
+	height: "auto",
+	width: "90%",
+	maxWidth: "350px",
+	resizable : false,
+	modal: true,
+	show: {
+		effect: "fade",
+		duration: 300
+	},
+	maxHeight: 450,
+	hide: {
+		effect: "fade",
+		duration: 300
+	}
+});
 
 
 /*
@@ -711,6 +733,10 @@ function selesai () {
 	$("#tmain").html("<a>&gt;</a>");
 	$("#tmain").css("background-color", "rgba(0, 256, 0, 0.6)");
 	
+	$("#tmain").off("click");	
+	$("#tmain").on("click", function(evt){
+		$("#identitas").dialog("open");
+	});
 	selectInteraction.on('select', defaultSelectFunction);
 	map.addInteraction(selectInteraction);
 }

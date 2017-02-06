@@ -82,6 +82,14 @@ body {
   display: none;
 }
 
+select {
+	width: 100%;
+}
+
+fieldset {
+	border-style: none;
+}
+
 input {
 	width:100%;
 }

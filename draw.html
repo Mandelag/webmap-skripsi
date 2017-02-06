@@ -9,7 +9,6 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.0/ol-debug.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.0/ol-debug.css" />
-		<!--<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1/jquery-ui.css" />-->
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="draw.css" />
 	</head>
@@ -35,6 +34,7 @@
 			<p>Lama tinggal</p>
 			<p><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
 			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</p>
+			<hr />
 		</form>
 	</div>
 	
@@ -123,8 +123,51 @@
 					<td style="width:2em;"><input type="radio" name="penduduk" value="SS" /></td>
 				</tr>
 			</table>
+			<hr />
 			<!-- ini dynamically aja -->
 			 <!--<button onclick="validateAttribute()" class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>-->
+		</form>
+	</div>
+	
+	<div id="identitas" class="ui-dialog">
+		<p>Sebentar lagi selesai!</p>
+		<form>
+			<p>Nama </p><input type="text" name="nama" pattern="[a-zA-Z ]+" required>
+			<p>Usia</p>
+			<p><input id="tl" class="kecil" type="number" min=0 max=25 name="tl" required> Tahun</p>
+			<fieldset>
+			<legend>Jenis kelamin </legend>
+				<label for="jk-m">Laki-laki</label>
+				<input type="radio" name="jk" id="jk-m" value="m" required>
+				<label for="jk-f">Perempuan</label>
+				<input type="radio" name="jk" id="jk-f" value="f" required>
+			</fieldset>
+			<p>NPM </p><input type="number" pattern="[\d]*" name="npm" inputmode="numeric" maxlength=16 required>
+			<!--<p>Jurusan: <input type="text" name="jurusan"/></p>-->
+			<p>Fakultas</p> 
+				<select id="selectFakultas" name="fakultas" required>
+					<option value="FK">Fakultas Kesehatan</option>
+					<option value="FEB">Fakultas  Ekonomi dan Bisnis</option>
+					<option value="FH">Fakultas Hukum</option>
+					<option value="FT">Fakultas Teknik</option>
+					<option value="FF">Fakultas Farmasi</option>
+					<option value="FPSI">Fakultas Psikologi</option>
+					<option value="FASILKOM">Fakultas Ilmu Komputer</option>		
+					<option value="FKG">Fakultas Kedokteran Gigi</option>
+					<option value="FIK">Fakultas Ilmu Keperawatan</option>
+					<option value="FKM">Fakultas Kesehatan Masyarakat</option>
+					<option value="FIB">Fakultas Ilmu Budaya</option>
+					<option value="FISIP">Fakultas Ilmu Sosial dan Ilmu Politik</option>
+					<option value="FMIPA">Fakultas Matematika dan IPA</option>
+					<option value="FIA">Fakultas Ilmu Administrasi</option>
+					<option value="VOK">Program Vokasi</option>
+				</select>
+			<!--<p>Angkatan <input type="text" name="angkatan" /></p>-->
+			
+			<p>No. HP </p><input type="text" pattern="[\d\+]*" name="hp" required>
+			<br />
+			<hr />
+			<button id="submit" class="ui-button ui-widget ui-corner-all">Selesai</button>
 		</form>
 	</div>
 	
@@ -139,7 +182,8 @@
 	
 	<script type="text/javascript" src="map.js"></script>
 	<script type="text/javascript">
-		
+		$( "#jk-m" ).checkboxradio();
+		$( "#jk-f" ).checkboxradio();
 	</script>
 
 	</body>
