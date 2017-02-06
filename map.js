@@ -273,6 +273,8 @@ function openAttributeOverlay (source, feature, msg) {
 			overlayGeser.setPosition(undefined);
 			map.removeInteraction(modifyInteraction);
 			map.addInteraction(selectInteraction);
+			$("#tmain").show();
+			$("#informasi").show();
 		});
 		$(containerGeser).append(info);
 		$(containerGeser).append(doneButton);
@@ -281,6 +283,11 @@ function openAttributeOverlay (source, feature, msg) {
 		
 		map.removeInteraction(selectInteraction);
 		map.addInteraction(modifyInteraction);
+		
+		
+		
+		$("#tmain").hide();
+		$("#informasi").hide();
 		
 		//console.log("not implemented yet.");
 	});
@@ -489,8 +496,8 @@ $("#kosLayerAttribute").dialog({
 	autoOpen: false,
 	dialogClass: "no-close",
 	height: "auto",
-	width: "90%",
-	maxWidth: "350px",
+	//width: "90%",
+	maxWidth: "450px",
 	resizable : false,
 	modal: true,
 	//close: defaultDialogClose,
@@ -508,8 +515,8 @@ $("#makanFavoritAttribute").dialog({
 	autoOpen: false,
 	dialogClass: "no-close",
 	height: "auto",
-	width: "90%",
-	maxWidth: "350px",
+	//width: "90%",
+	maxWidth: "450px",
 	resizable : false,
 	modal: true,
 	show: {
@@ -525,10 +532,9 @@ $("#makanFavoritAttribute").dialog({
 
 $("#identitas").dialog({
 	autoOpen: false,
-	dialogClass: "no-close",
 	height: "auto",
-	width: "90%",
-	maxWidth: "350px",
+	//width: "90%",
+	maxWidth: "450px",
 	resizable : false,
 	modal: true,
 	show: {
