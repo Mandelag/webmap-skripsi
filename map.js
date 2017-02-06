@@ -551,6 +551,7 @@ $("#identitas").dialog({
 $("#identitas-form").on("submit", function(evt){
 	evt.preventDefault();
 	//disable submit button
+	$("#kirim").prop("disabled", true);
 	var forms = $("#identitas-form").serialize();
 	console.log(forms);
 	
@@ -570,10 +571,10 @@ $("#identitas-form").on("submit", function(evt){
 	
 	$.post( "submit.php", request, function( data ) {
 		if (data == "sukses"){
-			//redirect ke halaman sukses.
+			window.location = "berhasil.htm";
 		}else {
-			//beritahu 'tunggu beberapa saat'.
-			//enable submit button.
+			alert("Hubungan ke server gagal. Silahkan tunggu beberapa saat.");
+			$("#kirim").prop("disabled", false);
 		}
 	});
 	
