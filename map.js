@@ -548,6 +548,37 @@ $("#identitas").dialog({
 	}
 });
 
+$("#identitas-form").on("submit", function(evt){
+	evt.preventDefault();
+	//disable submit button
+	var forms = $("#identitas-form").serialize();
+	console.log(forms);
+	
+	var gjsWriter = new ol.format.GeoJSON({
+		defaultDataProjection:"EPSG:3857"
+	});
+	var kosanJSON = gjsWriter.writeFeatures(kosSource.getFeatures());
+	var makanJSON = gjsWriter.writeFeatures(favoritSource.getFeatures());
+	
+	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(makanJSON);
+	
+	console.log(kosanJSON);
+	console.log(makanJSON);
+	
+	console.log();
+	console.log(request);
+	
+	$.post( "submit.php", request, function( data ) {
+		if (data == "sukses"){
+			//redirect ke halaman sukses.
+		}else {
+			//beritahu 'tunggu beberapa saat'.
+			//enable submit button.
+		}
+	});
+	
+});
+
 
 /*
  * App Logic

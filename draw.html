@@ -131,7 +131,7 @@
 	
 	<div id="identitas" class="ui-dialog">
 		<p>Sebentar lagi selesai!</p>
-		<form>
+		<form id="identitas-form">
 			<p>Nama </p><input type="text" name="nama" pattern="[a-zA-Z ]+" required>
 			<p>Usia</p>
 			<p><input id="tl" class="kecil" type="number" min=0 max=25 name="tl" required> Tahun</p>
@@ -167,7 +167,7 @@
 			<p>No. HP </p><input type="text" pattern="[\d\+]*" name="hp" required>
 			<br />
 			<hr />
-			<button id="submit" class="ui-button ui-widget ui-corner-all">Selesai</button>
+			<button type="submit" id="kirim" class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>Selesai</button>
 		</form>
 	</div>
 	
