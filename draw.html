@@ -4,7 +4,7 @@
 		<title>Gambar Peta</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.0/ol-debug.js"></script>
 
@@ -44,85 +44,50 @@
 			<p>Nama</p><input type="text" name="nama" maxlength="50" oninput="" value="" />
 			<p>Arahan menuju tempat ini</p>
 			<textarea rows="2" cols="30" name="keterangan" maxlength="512" oninput="" ></textarea>
-			<p>Biaya</p>
-			<table class="karakteristik">
-				<tr style="text-align:center;">
-					<td style="width:2em;">STS</td>
-					<td style="width:2em;">TS</td>
-					<td style="width:2em;">S</td>
-					<td style="width:2em;">SS</td>
-				</tr>
-				<tr style="text-align:center;">
-					<td style="width:2em;"> <input type="radio" name="harga" value="STS" /></td>
-					<td style="width:2em;"><input type="radio" name="harga" value="TS" /></td>
-					<td style="width:2em;"><input type="radio" name="harga" value="S" /></td>
-					<td style="width:2em;"><input type="radio" name="harga" value="SS" /></td>
-				</tr>
-			</table>
-
+			
+			<h3>Biaya</h3>
+			<ol>
+				<li>Menurut saya, harga makanan dan minuman yang ada di tempat ini terjangkau. <br />
+				<fieldset>
+					<label for="harga-sts">Sangat Tidak Setuju</label>
+					<input type="radio" name="harga" id="harga-sts" value="STS" />
+					<label for="harga-ts">Tidak Setuju</label>
+					<input type="radio" name="harga" id="harga-ts" value="TS" />
+					<label for="harga-s">Setuju</label>
+					<input type="radio" name="harga" id="harga-s" value="S" />
+					<label for="harga-ss">Sangat Setuju</label>
+					<input type="radio" name="harga" id="harga-ss" value="SS" />
+				</fieldset>
+				
+				</li>
+				<li>
+					tes
+				</li>
+			</ol>
+			
+				<!--
 			<p>Kenyamanan</p>
-				<table class="karakteristik">
-				<tr style="text-align:center;">
-					<td style="width:2em;">STS</td>
-					<td style="width:2em;">TS</td>
-					<td style="width:2em;">S</td>
-					<td style="width:2em;">SS</td>
-				</tr>
-				<tr style="text-align:center;">
-					<td style="width:2em;"> <input type="radio" name="kenyamanan" value="STS" /></td>
-					<td style="width:2em;"><input type="radio" name="kenyamanan" value="TS" /></td>
-					<td style="width:2em;"><input type="radio" name="kenyamanan" value="S" /></td>
-					<td style="width:2em;"><input type="radio" name="kenyamanan" value="SS" /></td>
-				</tr>
-			</table>
-			
+				<input type="radio" name="kenyamanan" value="STS" />
+				<input type="radio" name="kenyamanan" value="TS" />
+				<input type="radio" name="kenyamanan" value="S" />
+				<input type="radio" name="kenyamanan" value="SS" />
 			<p>Aksesibilitas</p>
-			<table class="karakteristik">
 				<tr style="text-align:center;">
-					<td style="width:2em;">STS</td>
-					<td style="width:2em;">TS</td>
-					<td style="width:2em;">S</td>
-					<td style="width:2em;">SS</td>
-				</tr>
-				<tr style="text-align:center;">
-					<td style="width:2em;"> <input type="radio" name="akses" value="STS" /></td>
-					<td style="width:2em;"><input type="radio" name="akses" value="TS" /></td>
-					<td style="width:2em;"><input type="radio" name="akses" value="S" /></td>
-					<td style="width:2em;"><input type="radio" name="akses" value="SS" /></td>
-				</tr>
-			</table>
-			
+				<input type="radio" name="akses" value="STS" />
+				<input type="radio" name="akses" value="TS" />
+				<input type="radio" name="akses" value="S" />
+				<input type="radio" name="akses" value="SS" />
 			<p>Fasilitas</p>
-			<table class="karakteristik">
 				<tr style="text-align:center;">
-					<td style="width:2em;">STS</td>
-					<td style="width:2em;">TS</td>
-					<td style="width:2em;">S</td>
-					<td style="width:2em;">SS</td>
-				</tr>
-				<tr style="text-align:center;">
-					<td style="width:2em;"> <input type="radio" name="fasilitas" value="STS" /></td>
-					<td style="width:2em;"><input type="radio" name="fasilitas" value="TS" /></td>
-					<td style="width:2em;"><input type="radio" name="fasilitas" value="S" /></td>
-					<td style="width:2em;"><input type="radio" name="fasilitas" value="SS" /></td>
-				</tr>
-			</table>
-			
+				<input type="radio" name="fasilitas" value="STS" />
+				<input type="radio" name="fasilitas" value="TS" />
+				<input type="radio" name="fasilitas" value="S" />
+				<input type="radio" name="fasilitas" value="SS" />
 			<p>Penduduk</p>
-			<table class="karakteristik">
-				<tr style="text-align:center;">
-					<td style="width:2em;">STS</td>
-					<td style="width:2em;">TS</td>
-					<td style="width:2em;">S</td>
-					<td style="width:2em;">SS</td>
-				</tr>
-				<tr style="text-align:center;">
-					<td style="width:2em;"> <input type="radio" name="penduduk" value="STS" /></td>
-					<td style="width:2em;"><input type="radio" name="penduduk" value="TS" /></td>
-					<td style="width:2em;"><input type="radio" name="penduduk" value="S" /></td>
-					<td style="width:2em;"><input type="radio" name="penduduk" value="SS" /></td>
-				</tr>
-			</table>
+				<input type="radio" name="penduduk" value="STS" />
+				<input type="radio" name="penduduk" value="TS" />
+				<input type="radio" name="penduduk" value="S" />
+				<input type="radio" name="penduduk" value="SS" /> -->
 			<hr />
 			<!-- ini dynamically aja -->
 			 <!--<button onclick="validateAttribute()" class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>-->
@@ -182,8 +147,20 @@
 	
 	<script type="text/javascript" src="map.js"></script>
 	<script type="text/javascript">
-		$( "#jk-m" ).checkboxradio();
-		$( "#jk-f" ).checkboxradio();
+		//$( "#jk-m" ).checkboxradio();
+		//$( "#jk-f" ).checkboxradio();
+		//$( "#harga-sts").checkboxradio();
+		//$( "#harga-ts").checkboxradio();
+		//$( "#harga-s").checkboxradio();
+		//$( "#harga-ss").checkboxradio();
+		$("input[type='radio']").checkboxradio();
+
+		function represh(){
+			$("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
+		}
+		//$.each($("input[type='radio']"), function(i, obj){
+		//	$(obj).checkboxradio();
+		//});
 	</script>
 
 	</body>

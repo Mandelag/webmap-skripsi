@@ -415,6 +415,11 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 			}
 		}
 	}
+	
+	jQueryForm.find("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
+
+	represh();
+	
 	var buttonSubmit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>OK</button>');
 	
 	jQueryForm.children("form").on('submit', function(evt){
@@ -430,6 +435,7 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 	});
 	
 	jQueryForm.children("form").append(buttonSubmit);
+	jQueryForm.find("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
 
 	return jQueryForm;
 }
@@ -676,6 +682,7 @@ function fav1Finish (msg){
 	}else if(msg == "finish") {
 		$("#tmain").off("click");
 		console.log("FINISH!");
+
 		//selesai(); //jump. nanti diganti.
 		fav2Idle();
 	}
