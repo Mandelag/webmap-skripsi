@@ -561,29 +561,24 @@ $("#identitas-form").on("submit", function(evt){
 	//disable submit button
 	$("#kirim").prop("disabled", true);
 	var forms = $("#identitas-form").serialize();
-	console.log(forms);
+	//console.log(forms);
 	
 	var gjsWriter = new ol.format.GeoJSON({
 		defaultDataProjection:"EPSG:3857"
 	});
 	var kosanJSON = gjsWriter.writeFeatures(kosSource.getFeatures());
-	var makanJSON = gjsWriter.writeFeatures(favoritSource.getFeatures());
+	var favJSON = gjsWriter.writeFeatures(favoritSource.getFeatures());
 	
-	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(makanJSON);
-	
-	console.log(kosanJSON);
-	console.log(makanJSON);
-	
-	console.log();
-	console.log(request);
+	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(favJSON);
 	
 	$.post( "submit.php", request, function( data ) {
-		if (data == "sukses"){
-			window.location = "berhasil.htm";
+		var data = JSON.parse(data);
+		if ("berhasil" === data["message"] ){
+			window.location = "success.htm";
 		}else {
 			alert("Hubungan ke server gagal. Silahkan tunggu beberapa saat.");
-			$("#kirim").prop("disabled", false);
 		}
+		$("#kirim").prop("disabled", false);
 	});
 	
 });
