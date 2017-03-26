@@ -30,7 +30,7 @@ favoritSource.setProperties({
 	name: "Tempat makan",
 	type: "Point",
 	attributes: ['peringkat', 'nama', 'keterangan', 'harga-1', 'harga-2', 
-	'kenyamanan-1', 'kenyamanan-2', 'akses-1', 'fasilitas-1', 'fasilitas-2',
+	'kenyamanan-1', 'kenyamanan-2', 'akses-1', 'akses-2', 'fasilitas-1', 'fasilitas-2',
 	'manusia-1', 'manusia-2']
 });
 
@@ -591,17 +591,16 @@ $("#identitas-form").on("submit", function(evt){
  * App Logic
  * 
  */
-
-var kosIdleMsg = "Dimanakah tempat tinggal anda (kos/kontrak/pondok/dst) saat ini di Kelurahan Kukusan? <br />"+
-					"Gunakan tombol '+' di samping kanan untuk menandai lokasinya di atas peta.";
+var jumlah_tempat_makan = 3;
+var kosIdleMsg = "Gunakan tombol '+' di samping kanan untuk menandai lokasi tempat tinggal sementara anda.";
 var kosDrawMsg = "Temukan dan klik lokasi tempat tinggal anda di peta...";
-var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan paling favorit (#1) pilihan Anda yang ada di sekitar UI.";
+var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit (1/"+jumlah_tempat_makan+") anda di Kukusan.";
 var fav1DrawMsg = "Klik di peta...";
-var fav2IdleMsg = "Tempat makan favorit kedua (#2)?";
+var fav2IdleMsg = "Tempat makan favorit (2/"+jumlah_tempat_makan+")?";
 var fav2DrawMsg = "Klik di peta...";
-var fav3IdleMsg = "Tempat makan avorit ketiga (#3)?";
+var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")?";
 var fav3DrawMsg = "Klik di peta...";
-var selesaiMsg = "Klik pada fitur yang telah dibuat untuk meninjau keterangan.";
+var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir.";
 
 function kosIdle (){
 	console.log("idle!");

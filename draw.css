@@ -8,7 +8,24 @@ body {
 	font-size: 0.9em;
 
 }
-
+ol {
+	padding-left: 12px;
+	padding-right: 0px;
+}
+li {
+	padding-left: 0px;
+	padding-bottom: 2px;
+}
+fieldset {
+	padding-left: 0em;
+}
+label.nilai {
+	width: 12px;
+}
+p{
+	font-size: 0.9em;
+	line-height: 1.4em;
+}
 .map {
 	height: 100%;
 	width: 100%;

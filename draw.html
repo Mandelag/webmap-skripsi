@@ -28,195 +28,147 @@
 
 	<div id="kosLayerAttribute" title="Isi Keterangan" class="ui-dialog"> <!-- untuk point -->
 		<form class="attr" target="#">
-			<p>Nama tempat</p><input type="text" name="nama" maxlength="32" oninput="" value="" >
-			<p>Alamat</p><input type="text" name="alamat" maxlength="128" oninput="" value="" />
+			<h4>Nama tempat</h4><input type="text" name="nama" maxlength="32" oninput="" value="" >
+			<h4>Alamat</h4><input type="text" name="alamat" maxlength="128" oninput="" value="" />
 			<!--<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>-->
-			<p>Lama tinggal</p>
-			<p><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
-			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</p>
+			<h4>Lama tinggal</h4>
+			<span><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
+			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</span>
 			<hr />
 		</form>
 	</div>
 	
 	<div id="makanFavoritAttribute" title="Isi Keterangan" class="ui-dialog"> <!-- untuk point -->
+		<h3>Tempat Makan</h3>
 		<p id="keterangan">Favorit #...</p>
 		<form id="attr_edit" class="attr" target="#">
-			<p>Nama</p><input type="text" name="nama" maxlength="50" oninput="" value="" />
-			<p>Arahan menuju tempat ini</p>
-			<textarea rows="2" cols="30" name="keterangan" maxlength="512" oninput="" ></textarea>
+			<h4>Nama</h4>
+			<p>Tuliskan nama sebutan bagi tempat ini (tidak harus nama benarnya).</p><input type="text" name="nama" maxlength="50" oninput="" value="" />
+			<h4>Arahan menuju tempat ini</h4>
+			<p>Berikan arahan singkat ke tempat ini sehingga orang lain bisa mengunjungi tempat ini.</p>
+			<textarea rows="4" cols="30" name="keterangan" maxlength="512" oninput="" ></textarea>
 			
-			
+			<h3>Penilaian Tempat</h3>
+			<p>1 = sangat tidak setuju<br /> 4 = sangat setuju</p>
 			<ol>
-				<h3>Biaya</h3>
-				<li>Menurut saya, harga makanan dan minuman di tempat ini terjangkau. <br />
+				<h4>Biaya</h4>
+				<li><p>Harga makanan dan minuman di tempat ini terjangkau.</p>
 				<fieldset>
-					<label for="harga-1-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="harga-1" id="harga-1-sts" value="STS" />
-					<label for="harga-1-ts">Tidak Setuju</label>
-					<input type="radio" name="harga-1" id="harga-1-ts" value="TS" />
-					<label for="harga-1-s">Setuju</label>
-					<input type="radio" name="harga-1" id="harga-1-s" value="S" />
-					<label for="harga-1-ss">Sangat Setuju</label>
-					<input type="radio" name="harga-1" id="harga-1-ss" value="SS" />
+					<label for="harga-1-1" class="nilai">1</label><input type="radio" name="harga-1" id="harga-1-1" value="1" />
+					<label for="harga-1-2" class="nilai">2</label><input type="radio" name="harga-1" id="harga-1-2" value="2" />
+					<label for="harga-1-3" class="nilai">3</label><input type="radio" name="harga-1" id="harga-1-3" value="3" />
+					<label for="harga-1-4" class="nilai">4</label><input type="radio" name="harga-1" id="harga-1-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<li>Menurut saya, harga makanan dan minuman di sekitar tempat ini terjangkau. <br />
+				<li><p>Harga makanan dan minuman di tempat ini sesuai dengan kualitasnya.</p>
 				<fieldset>
-					<label for="harga-2-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="harga-2" id="harga-2-sts" value="STS" />
-					<label for="harga-2-ts">Tidak Setuju</label>
-					<input type="radio" name="harga-2" id="harga-2-ts" value="TS" />
-					<label for="harga-2-s">Setuju</label>
-					<input type="radio" name="harga-2" id="harga-2-s" value="S" />
-					<label for="harga-2-ss">Sangat Setuju</label>
-					<input type="radio" name="harga-2" id="harga-2-ss" value="SS" />
+					<label for="harga-2-1" class="nilai">1</label><input type="radio" name="harga-2" id="harga-2-1" value="1" />
+					<label for="harga-2-2" class="nilai">2</label><input type="radio" name="harga-2" id="harga-2-2" value="2" />
+					<label for="harga-2-3" class="nilai">3</label><input type="radio" name="harga-2" id="harga-2-3" value="3" />
+					<label for="harga-2-4" class="nilai">4</label><input type="radio" name="harga-2" id="harga-2-4" value="4" />
 				</fieldset>
 				</li>
 				
 				
-				<h3>Kenyamanan</h3>
-				<li>Saya merasa nyaman makan atau minum di tempat ini.<br />
+				<h4>Lingkungan</h4>
+				<li><p>Saya merasa nyaman makan atau minum di tempat ini.</p>
 				<fieldset>
-					<label for="kenyamanan-1-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="kenyamanan-1" id="kenyamanan-1-sts" value="STS" />
-					<label for="kenyamanan-1-ts">Tidak Setuju</label>
-					<input type="radio" name="kenyamanan-1" id="kenyamanan-1-ts" value="TS" />
-					<label for="kenyamanan-1-s">Setuju</label>
-					<input type="radio" name="kenyamanan-1" id="kenyamanan-1-s" value="S" />
-					<label for="kenyamanan-1-ss">Sangat Setuju</label>
-					<input type="radio" name="kenyamanan-1" id="kenyamanan-1-ss" value="SS" />
+					<label for="kenyamanan-1-1" class="nilai">1</label><input type="radio" name="kenyamanan-1" id="kenyamanan-1-1" value="1" />
+					<label for="kenyamanan-1-2" class="nilai">2</label><input type="radio" name="kenyamanan-1" id="kenyamanan-1-2" value="2" />
+					<label for="kenyamanan-1-3" class="nilai">3</label><input type="radio" name="kenyamanan-1" id="kenyamanan-1-3" value="3" />
+					<label for="kenyamanan-1-4" class="nilai">4</label><input type="radio" name="kenyamanan-1" id="kenyamanan-1-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<li>Lingkungan di sekitar tempat ini terasa nyaman.<br />
+				<li><p>Saya senang menghabiskan waktu di tempat ini.</p>
 				<fieldset>
-					<label for="kenyamanan-2-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="kenyamanan-2" id="kenyamanan-2-sts" value="STS" />
-					<label for="kenyamanan-2-ts">Tidak Setuju</label>
-					<input type="radio" name="kenyamanan-2" id="kenyamanan-2-ts" value="TS" />
-					<label for="kenyamanan-2-s">Setuju</label>
-					<input type="radio" name="kenyamanan-2" id="kenyamanan-2-s" value="S" />
-					<label for="kenyamanan-2-ss">Sangat Setuju</label>
-					<input type="radio" name="kenyamanan-2" id="kenyamanan-2-ss" value="SS" />
+					<label for="kenyamanan-2-1" class="nilai">1</label><input type="radio" name="kenyamanan-2" id="kenyamanan-2-1" value="1" />
+					<label for="kenyamanan-2-2" class="nilai">2</label><input type="radio" name="kenyamanan-2" id="kenyamanan-2-2" value="2" />
+					<label for="kenyamanan-2-3" class="nilai">3</label><input type="radio" name="kenyamanan-2" id="kenyamanan-2-3" value="3" />
+					<label for="kenyamanan-2-4" class="nilai">4</label><input type="radio" name="kenyamanan-2" id="kenyamanan-2-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<h3>Akses</h3>
-				<li>Tempat ini mudah dijangkau dari mana saja.<br />
+				<h4>Aksesibilitas</h4>
+				<li><p>Tempat ini mudah dijangkau dari mana saja.</p>
 				<fieldset>
-					<label for="akses-1-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="akses-1" id="akses-1-sts" value="STS" />
-					<label for="akses-1-ts">Tidak Setuju</label>
-					<input type="radio" name="akses-1" id="akses-1-ts" value="TS" />
-					<label for="akses-1-s">Setuju</label>
-					<input type="radio" name="akses-1" id="akses-1-s" value="S" />
-					<label for="akses-1-ss">Sangat Setuju</label>
-					<input type="radio" name="akses-1" id="akses-1-ss" value="SS" />
+					<label for="akses-1-1" class="nilai">1</label><input type="radio" name="akses-1" id="akses-1-1" value="1" />
+					<label for="akses-1-2" class="nilai">2</label><input type="radio" name="akses-1" id="akses-1-2" value="2" />
+					<label for="akses-1-3" class="nilai">3</label><input type="radio" name="akses-1" id="akses-1-3" value="3" />
+					<label for="akses-1-4" class="nilai">4</label><input type="radio" name="akses-1" id="akses-1-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<h3>Fasilitas</h3>
-				<li>Selain makanan dan minuman, tempat ini memiliki ragam fasilitas untuk mahasiswa.<br />
+				<li><p>Tempat ini berada di jalan yang ramai dengan lalu lintas mahasiswa.</p>
 				<fieldset>
-					<label for="fasilitas-1-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="fasilitas-1" id="fasilitas-1-sts" value="STS" />
-					<label for="fasilitas-1-ts">Tidak Setuju</label>
-					<input type="radio" name="fasilitas-1" id="fasilitas-1-ts" value="TS" />
-					<label for="fasilitas-1-s">Setuju</label>
-					<input type="radio" name="fasilitas-1" id="fasilitas-1-s" value="S" />
-					<label for="fasilitas-1-ss">Sangat Setuju</label>
-					<input type="radio" name="fasilitas-1" id="fasilitas-1-ss" value="SS" />
+					<label for="akses-2-1" class="nilai">1</label><input type="radio" name="akses-2" id="akses-2-1" value="1" />
+					<label for="akses-2-2" class="nilai">2</label><input type="radio" name="akses-2" id="akses-2-2" value="2" />
+					<label for="akses-2-3" class="nilai">3</label><input type="radio" name="akses-2" id="akses-2-3" value="3" />
+					<label for="akses-2-4" class="nilai">4</label><input type="radio" name="akses-2" id="akses-2-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<li>Di sekitar tempat ini terdapat banyak fasilitas penunjang kegiatan saya sebagai mahasiswa.<br />
+				<h4>Fasilitas</h4>
+				<li><p>Tempat ini menyediakan fasilitas pendukung yang lengkap bagi mahasiswa.</p>
 				<fieldset>
-					<label for="fasilitas-2-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="fasilitas-2" id="fasilitas-2-sts" value="STS" />
-					<label for="fasilitas-2-ts">Tidak Setuju</label>
-					<input type="radio" name="fasilitas-2" id="fasilitas-2-ts" value="TS" />
-					<label for="fasilitas-2-s">Setuju</label>
-					<input type="radio" name="fasilitas-2" id="fasilitas-2-s" value="S" />
-					<label for="fasilitas-2-ss">Sangat Setuju</label>
-					<input type="radio" name="fasilitas-2" id="fasilitas-2-ss" value="SS" />
+					<label for="fasilitas-1-1" class="nilai">1</label><input type="radio" name="fasilitas-1" id="fasilitas-1-1" value="1" />
+					<label for="fasilitas-1-2" class="nilai">2</label><input type="radio" name="fasilitas-1" id="fasilitas-1-2" value="2" />
+					<label for="fasilitas-1-3" class="nilai">3</label><input type="radio" name="fasilitas-1" id="fasilitas-1-3" value="3" />
+					<label for="fasilitas-1-4" class="nilai">4</label><input type="radio" name="fasilitas-1" id="fasilitas-1-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<h3>Manusia</h3>
-				<li>Orang-orang yang berada di tempat ini (pemilik, pelanggan, dan sebagainya) ramah.<br />
+				<li><p>Fasilitas di tempat ini lebih penting dibandingkan dengan makanan dan minumannya.</p>
 				<fieldset>
-					<label for="manusia-1-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="manusia-1" id="manusia-1-sts" value="STS" />
-					<label for="manusia-1-ts">Tidak Setuju</label>
-					<input type="radio" name="manusia-1" id="manusia-1-ts" value="TS" />
-					<label for="manusia-1-s">Setuju</label>
-					<input type="radio" name="manusia-1" id="manusia-1-s" value="S" />
-					<label for="manusia-1-ss">Sangat Setuju</label>
-					<input type="radio" name="manusia-1" id="manusia-1-ss" value="SS" />
+					<label for="fasilitas-2-1" class="nilai">1</label><input type="radio" name="fasilitas-2" id="fasilitas-2-1" value="1" />
+					<label for="fasilitas-2-2" class="nilai">2</label><input type="radio" name="fasilitas-2" id="fasilitas-2-2" value="2" />
+					<label for="fasilitas-2-3" class="nilai">3</label><input type="radio" name="fasilitas-2" id="fasilitas-2-3" value="3" />
+					<label for="fasilitas-2-4" class="nilai">4</label><input type="radio" name="fasilitas-2" id="fasilitas-2-4" value="4" />
 				</fieldset>
 				</li>
 				
-				<li>Lingkungan di sekitar tempat ini terasa aman.<br />
+				<h4>Penduduk Sekitar</h4>
+				<li><p>Saya biasa mengunjungi tempat ini bersama dengan teman-teman.</p>
 				<fieldset>
-					<label for="manusia-2-sts">Sangat Tidak Setuju</label>
-					<input type="radio" name="manusia-2" id="manusia-2-sts" value="STS" />
-					<label for="manusia-2-ts">Tidak Setuju</label>
-					<input type="radio" name="manusia-2" id="manusia-2-ts" value="TS" />
-					<label for="manusia-2-s">Setuju</label>
-					<input type="radio" name="manusia-2" id="manusia-2-s" value="S" />
-					<label for="manusia-2-ss">Sangat Setuju</label>
-					<input type="radio" name="manusia-2" id="manusia-2-ss" value="SS" />
+					<label for="manusia-1-1" class="nilai">1</label><input type="radio" name="manusia-1" id="manusia-1-1" value="1" />
+					<label for="manusia-1-2" class="nilai">2</label><input type="radio" name="manusia-1" id="manusia-1-2" value="2" />
+					<label for="manusia-1-3" class="nilai">3</label><input type="radio" name="manusia-1" id="manusia-1-3" value="3" />
+					<label for="manusia-1-4" class="nilai">4</label><input type="radio" name="manusia-1" id="manusia-1-4" value="4" />
+				</fieldset>
+				</li>
+				
+				<li><p>Saya kenal baik dengan pemilik/pegawai tempat makan ini.</p>
+				<fieldset>
+					<label for="manusia-2-1" class="nilai">1</label><input type="radio" name="manusia-2" id="manusia-2-1" value="1" />
+					<label for="manusia-2-2" class="nilai">2</label><input type="radio" name="manusia-2" id="manusia-2-2" value="2" />
+					<label for="manusia-2-3" class="nilai">3</label><input type="radio" name="manusia-2" id="manusia-2-3" value="3" />
+					<label for="manusia-2-4" class="nilai">4</label><input type="radio" name="manusia-2" id="manusia-2-4" value="4" />
 				</fieldset>
 				</li>
 				
 			</ol>
-			
-				<!--
-			<p>Kenyamanan</p>
-				<input type="radio" name="kenyamanan" value="STS" />
-				<input type="radio" name="kenyamanan" value="TS" />
-				<input type="radio" name="kenyamanan" value="S" />
-				<input type="radio" name="kenyamanan" value="SS" />
-			<p>Aksesibilitas</p>
-				<tr style="text-align:center;">
-				<input type="radio" name="akses" value="STS" />
-				<input type="radio" name="akses" value="TS" />
-				<input type="radio" name="akses" value="S" />
-				<input type="radio" name="akses" value="SS" />
-			<p>Fasilitas</p>
-				<tr style="text-align:center;">
-				<input type="radio" name="fasilitas" value="STS" />
-				<input type="radio" name="fasilitas" value="TS" />
-				<input type="radio" name="fasilitas" value="S" />
-				<input type="radio" name="fasilitas" value="SS" />
-			<p>Penduduk</p>
-				<input type="radio" name="penduduk" value="STS" />
-				<input type="radio" name="penduduk" value="TS" />
-				<input type="radio" name="penduduk" value="S" />
-				<input type="radio" name="penduduk" value="SS" /> -->
 			<hr />
-			<!-- ini dynamically aja -->
-			 <!--<button onclick="validateAttribute()" class="ui-button ui-widget ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>OK</button>-->
 		</form>
 	</div>
 	
-	<div id="identitas" class="ui-dialog">
+	<div id="identitas" class="ui-dialog" title="Identitas Responden">
 		<p>Sebentar lagi selesai!</p>
 		<form id="identitas-form">
-			<p>Nama </p><input type="text" name="nama" pattern="[a-zA-Z ]+" required>
-			<p>Usia</p>
-			<p><input id="tl" class="kecil" type="number" min=0 max=25 name="usia" required> Tahun</p>
+			<h4>Nama </h4><input type="text" name="nama" pattern="[a-zA-Z ]+" required>
+			<h4>Usia</h4>
+			<span><input id="tl" class="kecil" type="number" min=0 max=25 name="usia" required> Tahun</span>
+			<h4>Jenis kelamin</h4>
 			<fieldset>
-			<legend>Jenis kelamin </legend>
+			<!--<legend>Jenis kelamin </legend>-->
 				<label for="jk-m">Laki-laki</label>
 				<input type="radio" name="jk" id="jk-m" value="m" required>
 				<label for="jk-f">Perempuan</label>
 				<input type="radio" name="jk" id="jk-f" value="f" required>
 			</fieldset>
-			<p>NPM </p><input type="number" pattern="[\d]*" name="npm" inputmode="numeric" maxlength=16 required>
+			<h4>NPM </h4><input type="number" pattern="[\d]*" name="npm" inputmode="numeric" maxlength=16 required>
 			<!--<p>Jurusan: <input type="text" name="jurusan"/></p>-->
-			<p>Fakultas</p> 
+			<h4>Fakultas</h4> 
 				<select id="selectFakultas" name="fakultas" required>
 					<option value="FK">Fakultas Kesehatan</option>
 					<option value="FEB">Fakultas  Ekonomi dan Bisnis</option>
@@ -236,7 +188,10 @@
 				</select>
 			<!--<p>Angkatan <input type="text" name="angkatan" /></p>-->
 			
-			<p>No. HP </p><input type="text" pattern="[\d\+]*" name="hp" required>
+			<h4>No. HP / Email </h4>
+			<p>Digunakan untuk melakukan verifikasi data</p>
+			<!--<input type="text" pattern="[\d\+]*" name="hp" required>-->
+			<input type="text" name="hp" required>
 			<br />
 			<hr />
 			<button type="submit" id="kirim" class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>Selesai</button>
@@ -255,7 +210,7 @@
 	<script type="text/javascript" src="map.js"></script>
 	<script type="text/javascript">
 		$("input[type='radio']").checkboxradio();
-
+		$( "fieldset" ).controlgroup();
 		function represh(){
 			$("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.SOLVED.
 		}
