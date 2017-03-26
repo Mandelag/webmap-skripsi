@@ -21,7 +21,8 @@ kosSource.setProperties({
 	idCounter: 0,
 	name: "Tempat tinggal",
 	type: "Point",
-	attributes: ['nama', 'alamat', 'lama_bulan', 'lama_hari']
+	attributes: ['nama', 'alamat', 'lama_bulan', 'lama_hari'],
+	attdisplay: [true, true, false, false]
 });
 
 favoritSource.setProperties({
@@ -31,13 +32,14 @@ favoritSource.setProperties({
 	type: "Point",
 	attributes: ['peringkat', 'nama', 'keterangan', 'harga-1', 'harga-2', 
 	'kenyamanan-1', 'kenyamanan-2', 'akses-1', 'akses-2', 'fasilitas-1', 'fasilitas-2',
-	'manusia-1', 'manusia-2']
+	'manusia-1', 'manusia-2'],
+	attdisplay: [true, true, true, false, false, false, false, false, false, false, false, false, false]
 });
 
 /* layers */
 
 var styleFunction = function (stringColor){
-	var resultFunction = new function(feature, zl){
+	var resultFunction = function(feature, zl){
 		var radius;
 		if(zl < 0.3) {
 			radius = 16;
@@ -57,7 +59,19 @@ var styleFunction = function (stringColor){
 				color: '#aaa',
 				width: 1
 			})
-			})
+			}),
+			text: new ol.style.Text({
+				text: feature.get("nama"),
+				stroke: new ol.style.Stroke({
+						color: '#fff',
+						width: 2
+					}),
+				scale: 1,
+				font: '12px sans-serif',
+				offsetX: 0,
+				offsetY: -24,
+				textAlgin: "center"
+				})
 		})
 		return style;
 	}
@@ -209,20 +223,23 @@ function openAttributeOverlay (source, feature, msg) {
 	containerHtml.empty();
 	var id = feature.getId();
 	var attributes = source.getProperties()['attributes']; 
+	var atd = source.getProperties()['attdisplay'];
 	var props = feature.getProperties();
 	console.log(props);
 	var table = $("<table></table>");
 	table.css("width","100%");
 	table.append("<br />");	
 	for(var i=0; i<attributes.length; i++){
-		var row = $("<tr></tr>");
-		row.append("<td style='font-weight:bold;'>"+attributes[i]+"</td>");
-		var value = props[attributes[i]];
-		if( value == "") {
-			value = "-"
+		if(atd[i]){
+			var row = $("<tr></tr>");
+			row.append("<td style='font-weight:bold;'>"+attributes[i]+"</td>");
+			var value = props[attributes[i]];
+			if( value == "") {
+				value = "-"
+			}
+			row.append("<td><div>"+value+"</div></td>");
+			table.append(row);
 		}
-		row.append("<td><div>"+value+"</div></td>");
-		table.append(row);
 	}
 	containerHtml.append(table);
 	containerHtml.append("<br />");
@@ -592,9 +609,12 @@ $("#identitas-form").on("submit", function(evt){
  * 
  */
 var jumlah_tempat_makan = 3;
-var kosIdleMsg = "Gunakan tombol '+' di samping kanan untuk menandai lokasi tempat tinggal sementara anda.";
+var kosIdleMsg = "Gunakan tombol '+' di kanan bawah untuk menandai lokasi tempat tinggal sementara anda.";
 var kosDrawMsg = "Temukan dan klik lokasi tempat tinggal anda di peta...";
-var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit (1/"+jumlah_tempat_makan+") anda di Kukusan.";
+var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit (1/"+jumlah_tempat_makan+") anda di Kukusan.<br/><br/>"+
+					"Kriteria tempat makan:<br />"+
+					"  1. Berada di dalam bangunan permanen.<br />"+
+					"  2. Berada di luar tempat tinggal sementara.";
 var fav1DrawMsg = "Klik di peta...";
 var fav2IdleMsg = "Tempat makan favorit (2/"+jumlah_tempat_makan+")?";
 var fav2DrawMsg = "Klik di peta...";
