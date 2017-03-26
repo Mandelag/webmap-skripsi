@@ -570,17 +570,20 @@ $("#identitas-form").on("submit", function(evt){
 	var favJSON = gjsWriter.writeFeatures(favoritSource.getFeatures());
 	
 	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(favJSON);
-	
-	$.post( "submit.php", request, function( data ) {
-		var data = JSON.parse(data);
-		if ("berhasil" === data["message"] ){
-			window.location = "success.htm";
+	console.log(request);
+	$.post( "http://www.mandelag.com/skripsi/submit.php", request, function( data ) {
+		console.log(data);
+		//var data = JSON.parse(data);
+		
+		if ("Sukses" === data ){
+			alert("Sukses!");
+			//window.location = "success.htm";
 		}else {
 			alert("Hubungan ke server gagal. Silahkan tunggu beberapa saat.");
 		}
 		$("#kirim").prop("disabled", false);
 	});
-	
+	$("#kirim").prop("disabled", true);
 });
 
 
