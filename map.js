@@ -102,7 +102,7 @@ var osmLayer = new ol.layer.Tile({
 
 var surveyLayer = new ol.layer.Tile({
 	source: new ol.source.TileImage({
-		url: 'mandelag.com/skripsi/basemap-sm/{z}/{x}/{y}.png'
+		url: 'basemap-sm/{z}/{x}/{y}.png'
 	})
 });
 
@@ -578,7 +578,7 @@ $("#identitas-form").on("submit", function(evt){
 	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(favJSON);
 	console.log(request);
 	try {
-		$.post( "http://www.mandelag.com/skripsi/submit-pg.php", request, function( data ) {
+		$.post( "submit-pg.php", request, function( data ) {
 			console.log(data);
 			//var data = JSON.parse(data);
 			
