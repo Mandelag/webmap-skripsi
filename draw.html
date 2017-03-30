@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background-color:#fcc;">
+<html style="background-color:#333;">
 	<head>
 		<title>Gambar Peta</title>
 		<meta charset="UTF-8" />
@@ -28,10 +28,16 @@
 
 	<div id="kosLayerAttribute" title="Isi Keterangan" class="ui-dialog"> <!-- untuk point -->
 		<form class="attr" target="#">
-			<h4>Nama tempat</h4><input type="text" name="nama" maxlength="32" oninput="" value="" >
-			<h4>Alamat</h4><input type="text" name="alamat" maxlength="128" oninput="" value="" />
+			<h4>Nama</h4>
+			<p>Nama tempat tinggal sementara</p>
+			<input type="text" name="nama" maxlength="32" oninput="" value="" >
+			<h4>Arahan menuju tempat ini</h4>
+			<p>Jika kamu ingin mengundang teman kamu yang belum pernah ke tempat ini sama sekali, 
+			arahan seperti apa yang akan kamu berikan?</p>
+			<input type="text" name="alamat" maxlength="128" oninput="" value="" />
 			<!--<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>-->
 			<h4>Lama tinggal</h4>
+			<p>Berapa lama kamu tinggal di tempat ini? (perkiraan)</p>
 			<span><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
 			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</span>
 			<hr />
@@ -43,13 +49,15 @@
 		<p id="keterangan">Favorit #...</p>
 		<form id="attr_edit" class="attr" target="#">
 			<h4>Nama</h4>
-			<p>Tuliskan nama sebutan bagi tempat ini (tidak harus nama benarnya).</p><input type="text" name="nama" maxlength="50" oninput="" value="" />
+			<p>Tuliskan nama tempat ini.</p>
+			<input type="text" name="nama" maxlength="50" oninput="" value="" />
 			<h4>Arahan menuju tempat ini</h4>
-			<p>Berikan arahan singkat ke tempat ini sehingga orang lain bisa mengunjungi tempat ini.</p>
+			<p>Jika kamu ingin mengundang teman kamu yang belum pernah ke tempat ini sama sekali, 
+			arahan seperti apa yang akan kamu berikan?</p>
 			<textarea rows="4" cols="30" name="keterangan" maxlength="512" oninput="" ></textarea>
 			
 			<h3>Penilaian Tempat</h3>
-			<p>1 = sangat tidak setuju<br /> 4 = sangat setuju</p>
+			<p>Berikan penilaian terhadap tempat makan ini.<br />1 = sangat tidak setuju<br /> 4 = sangat setuju</p>
 			<ol>
 				<h4>Biaya</h4>
 				<li><p>Harga makanan dan minuman di tempat ini terjangkau.</p>
@@ -72,7 +80,7 @@
 				
 				
 				<h4>Lingkungan</h4>
-				<li><p>Saya merasa nyaman makan atau minum di tempat ini.</p>
+				<li><p>Di tempat ini tidak banyak gangguan yang berasal dari lingkungan sekitar.</p>
 				<fieldset>
 					<label for="kenyamanan-1-1" class="nilai">1</label><input type="radio" name="kenyamanan-1" id="kenyamanan-1-1" value="1" />
 					<label for="kenyamanan-1-2" class="nilai">2</label><input type="radio" name="kenyamanan-1" id="kenyamanan-1-2" value="2" />

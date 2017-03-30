@@ -11,7 +11,7 @@ $(function () {
 /* sources */
 
 //id counter perlu karena ubah atribut nanti pakai getId
-var COUNTER=0;  //nantinya id ini harusnya dibedakan per source.
+var COUNTER=0;  //nantinya id ini baiknya dibedakan per source.
 
 var kosSource = new ol.source.Vector({});
 var favoritSource = new ol.source.Vector({});
@@ -91,8 +91,7 @@ var favoritLayer = new ol.layer.Vector({
 });
 
 var osmLayer = new ol.layer.Tile({
-	source: new ol.source.OSM({  //karena ingin mencari hotspot wilayah usaha, di basemap ga boleh ada poi usaha.
-								// jadi harus bikin patokan non-wilayah usaha.
+	source: new ol.source.OSM({  
 		url: 'http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png',
 		//url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png',
 		//attributions: ol.source.OSM.ATTRIBUTION
@@ -103,7 +102,7 @@ var osmLayer = new ol.layer.Tile({
 
 var surveyLayer = new ol.layer.Tile({
 	source: new ol.source.TileImage({
-		url: 'basemap/{z}/{x}/{y}.png'
+		url: 'mandelag.com/skripsi/basemap-sm/{z}/{x}/{y}.png'
 	})
 });
 
@@ -114,7 +113,6 @@ var currentDrawInteraction;
 var selectInteraction = new ol.interaction.Select({  //buka editor atribut apabila fitur di klik.
 	layers: [kosLayer, favoritLayer],
 	toggleCondition: ol.events.condition.never, // disable multiple selection.
-	//filter: defaultSelectFilterFunction
 });
 
 var defaultSelectFunction = function(evt){	
@@ -129,7 +127,6 @@ var defaultSelectFunction = function(evt){
 			openAttributeOverlay(source, feature, source.getProperties()['name']);
 			overlay.setPosition(feature.getGeometry().getCoordinates());
 			$(container).animate({opacity: 1},100, "swing", function(){});
-			//$(container).fadeIn(200);		
 		}else if(evt.deselected.length >= 1) { //klik fitur baru dari tadinya fitur lain.
 			$(container).animate({opacity: 0},100, "swing", function(){	
 				overlay.setPosition(undefined);
@@ -149,17 +146,17 @@ var modifyInteraction;
 
 /* main map */
 
-var minx = ol.proj.transform([106.81, -6.375], 'EPSG:4326', 'EPSG:3857');
-var maxx = ol.proj.transform([106.844, -6.355], 'EPSG:4326', 'EPSG:3857');
+var minx = ol.proj.transform([106.813, -6.374], 'EPSG:4326', 'EPSG:3857');
+var maxx = ol.proj.transform([106.826, -6.356], 'EPSG:4326', 'EPSG:3857');
 
 var map = new ol.Map ({
 	target : "map",
-	layers : [/*surveyLayer,*/ osmLayer, favoritLayer, kosLayer],
+	layers : [osmLayer, surveyLayer, favoritLayer, kosLayer],
 	view : new ol.View({
-		minZoom: 14,
+		minZoom: 16,
 		maxZoom: 19,
-		zoom: 14,
-		center: ol.proj.transform([106.827, -6.365], 'EPSG:4326', 'EPSG:3857'),
+		zoom: 16,
+		center: ol.proj.transform([106.822, -6.365], 'EPSG:4326', 'EPSG:3857'),
 		extent: [minx[0],minx[1],maxx[0],maxx[1]]
 	})
 });
@@ -307,8 +304,6 @@ function openAttributeOverlay (source, feature, msg) {
 		
 		$("#tmain").hide();
 		$("#informasi").hide();
-		
-		//console.log("not implemented yet.");
 	});
 	
 	line.append(buttonMove);
@@ -324,7 +319,6 @@ function getSourceByName(sourceName) {
 	map.getLayers().forEach( function (el, index, array){	/* cari layer */
 		var sourceData = el.getSource();
 		var variableName = sourceData.getProperties()['variableName'];
-		//console.log(variableName);
 		if(variableName == sourceName) {			
 			source = sourceData;
 		}
@@ -390,7 +384,6 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 	});
 		
 	map.addInteraction(currentDrawInteraction); /* tambahkan interaction sesuai dengan source */
-	//map.addInteraction(snapInteraction);
 	closeOverlay(true);
 };
 
@@ -497,7 +490,6 @@ function formSubmit() {
 
 
 var defaultDialogClose = function(event, ui) {
-	//map.addInteraction(selectInteraction);
 	closeOverlay(true);
 	selectInteraction.getFeatures().clear();
 }
@@ -540,7 +532,6 @@ $("#makanFavoritAttribute").dialog({
 	autoOpen: false,
 	dialogClass: "no-close",
 	height: "auto",
-	//width: "90%",
 	maxWidth: "450px",
 	resizable : false,
 	modal: true,
@@ -558,7 +549,6 @@ $("#makanFavoritAttribute").dialog({
 $("#identitas").dialog({
 	autoOpen: false,
 	height: "auto",
-	//width: "90%",
 	maxWidth: "450px",
 	resizable : false,
 	modal: true,
@@ -578,8 +568,7 @@ $("#identitas-form").on("submit", function(evt){
 	//disable submit button
 	$("#kirim").prop("disabled", true);
 	var forms = $("#identitas-form").serialize();
-	//console.log(forms);
-	
+		
 	var gjsWriter = new ol.format.GeoJSON({
 		defaultDataProjection:"EPSG:3857"
 	});
@@ -588,18 +577,23 @@ $("#identitas-form").on("submit", function(evt){
 	
 	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(favJSON);
 	console.log(request);
-	$.post( "http://www.mandelag.com/skripsi/submit.php", request, function( data ) {
-		console.log(data);
-		//var data = JSON.parse(data);
-		
-		if ("Sukses" === data ){
-			alert("Sukses!");
-			//window.location = "success.htm";
-		}else {
-			alert("Hubungan ke server gagal. Silahkan tunggu beberapa saat.");
-		}
+	try {
+		$.post( "http://www.mandelag.com/skripsi/submit-pg.php", request, function( data ) {
+			console.log(data);
+			//var data = JSON.parse(data);
+			
+			if ("Sukses" === data ){
+				alert("Sukses!");
+				window.location = "success.htm";
+			}else {
+				alert("Hubungan ke server gagal. Harap tunggu beberapa saat.");
+			}
+			$("#kirim").prop("disabled", false);
+		});
+	}catch(e){
 		$("#kirim").prop("disabled", false);
-	});
+		console.log(e);
+	}
 	$("#kirim").prop("disabled", true);
 });
 
@@ -608,17 +602,22 @@ $("#identitas-form").on("submit", function(evt){
  * App Logic
  * 
  */
-var jumlah_tempat_makan = 3;
+var jumlah_tempat_makan = 2;
 var kosIdleMsg = "Gunakan tombol '+' di kanan bawah untuk menandai lokasi tempat tinggal sementara anda.";
 var kosDrawMsg = "Temukan dan klik lokasi tempat tinggal anda di peta...";
-var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit (1/"+jumlah_tempat_makan+") anda di Kukusan.<br/><br/>"+
-					"Kriteria tempat makan:<br />"+
+var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit anda di Kukusan.<br/><br/>"+
+					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
 					"  1. Berada di dalam bangunan permanen.<br />"+
 					"  2. Berada di luar tempat tinggal sementara.";
-var fav1DrawMsg = "Klik di peta...";
-var fav2IdleMsg = "Tempat makan favorit (2/"+jumlah_tempat_makan+")?";
-var fav2DrawMsg = "Klik di peta...";
-var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")?";
+var favDrawMsg = "Klik di peta...";
+var fav2IdleMsg = "Tempat makan favorit (2/"+jumlah_tempat_makan+")? <br/><br/>"+
+					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
+					"  1. Berada di dalam bangunan permanen.<br />"+
+					"  2. Berada di luar tempat tinggal sementara.";
+var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")? <br/><br/>"+
+					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
+					"  1. Berada di dalam bangunan permanen.<br />"+
+					"  2. Berada di luar tempat tinggal sementara.";
 var fav3DrawMsg = "Klik di peta...";
 var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir.";
 
@@ -675,7 +674,7 @@ function fav1Idle (){
 
 function fav1Draw (){
 	console.log("draw!");
-	editInfoText(fav1DrawMsg);
+	editInfoText(favDrawMsg);
 
 	$("#tmain").addClass("active");
 	
@@ -719,7 +718,7 @@ function fav2Idle (){
 
 function fav2Draw (){
 	console.log("draw!");
-	editInfoText(fav2DrawMsg);
+	editInfoText(favDrawMsg);
 
 	$("#tmain").addClass("active");
 	
@@ -745,14 +744,14 @@ function fav2Finish (msg){
 	}else if(msg == "finish") {
 		$("#tmain").off("click");
 		console.log("FINISH!");
-		selesai(); //temporary
-		//fav3Idle();
+		//selesai(); //temporary
+		fav3Idle();
 	}
 };
 
 function fav3Idle (){
 	console.log("idle!");
-	editInfoText(fav3IdleMsg);
+	editInfoText(favDrawMsg);
 
 	$("#tmain").off("click");
 	$("#tmain").on("click", function(){
@@ -824,18 +823,17 @@ function editInfoText(msg){
 
 
 
-/*
-window.onbeforeunload = function(evt) {
-    var message = 'Apakah mau keluar?';
-    if (typeof evt == 'undefined') {
-        evt = window.event;
-    }
-    if (evt) {
-        evt.returnValue = message;
-    }
-    return message;
-}
-*/
+
+//window.onbeforeunload = function(evt) {
+//   var message = 'Apakah mau keluar dari aplikasi?\nData yang telah dimasukan akan terhapus.';
+//    if (typeof evt == 'undefined') {
+//        evt = window.event;
+//    }
+//    if (evt) {
+//        evt.returnValue = message;
+//    }
+//    return message;
+//}
 
 /* mulai aplikasi */
 kosIdle();
