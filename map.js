@@ -439,7 +439,7 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 		
 		jQueryForm.dialog("close");		
 		if(!(typeof callback === "undefined")) {
-			console.log("hmm... kok not undefined");
+			//console.log("hmm... kok not undefined");
 			callback("finish");
 		}
 		jQueryForm.children("form").off('submit');
