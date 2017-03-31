@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Identitas Diri</title>
+		<title>WebMap Tempat Makan</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
@@ -16,12 +16,49 @@
 	<body>	
 		<div id="halaman1" class="card">
 			<div class="card-content">
-			<p class="title" >Analisa Perbandingan <span style="font-style:italic">Volunteered Geographic Information</span> (VGI) dengan <span style="font-style:italic">Mental Maps</span></p>
+			<!--<p class="title" >
+				<span style="font-style:italic">Sense of Place</span> sebagai Ingatan dan Akurasi Lokasi Kolektif mengenai Tempat Makan Favorit di Kelurahan Kukusan</p>
 			<hr>
+			-->
 			<p id="greetings">
 				
 			</p>
-			<script type="text/javascript">
+			<p>
+			Saya Keenan dari departemen Geografi FMIPA Universitas Indonesia, sedang melakukan skripsi yang berjudul <span style="font-weight:bold">
+				"<span style="font-style:italic">Sense of Place</span> sebagai Ingatan dan Akurasi Lokasi Kolektif
+				 mengenai Tempat Makan Favorit di Kelurahan Kukusan."</span></p>
+			</p>
+			
+			<p>
+			Saya membutuhkan responden yang bersedia <span style="font-style:italic;">sharing</span>
+			 mengenai beberapa tempat makan favoritnya di Kelurahan Kukusan.
+			</p>
+			
+			<p>
+			Jika kamu merasa memenuhi persyaratan berikut:
+			</p>
+			<ol>
+				<li>Mahasiswa UI atau alumni UI.</li>
+				<li>Memiliki beberapa tempat makan favorit di Kelurahan Kukusan</li>
+				<li>Sedang tinggal sementara (baik kos, kontrak, apartemen, wisma, rumah kerabat, maupun pondok) di Kelurahan Kukusan</li>
+			</ol>
+			<p>
+			dimohon kesediaannya untuk menjadi responden penelitian dengan mengisi aplikasi web map di halaman berikut.<br/><br/>
+			Terimakasih
+			</p>
+			<br />
+			<p>
+			Salam,<br /><br />KMG
+			</p>
+			<a href="draw.html" style="position:absolute;right:10px;bottom:10px;">
+				<button type="button" class="ui-button ui-corner-all" style="width:140px;padding-top:5px;padding-bottom:5px;">
+					<span class="ui-icon  ui-icon-caret-1-e" style="zoom: 100%;"></span>
+					Isi Webmap
+				</button>
+			</a>
+			</div>
+		</div>
+		<script type="text/javascript">
 				var d = new Date();
 				var j = d.getHours();
 				var msg = "";
@@ -35,121 +72,6 @@
 					msg = "Selamat malam, ";
 				}
 				$("#greetings").html(msg);
-			</script>
-			<p>
-			Saya Keenan dari departemen Geografi FMIPA Universitas Indonesia. Saya sedang meneliti kualitas informasi geografis yang dihasilkan melalui media kertas
-			(<span style="font-style:italic">mental maps</span>) maupun komputer (<span style="font-style:italic">VGI</span>)
-			untuk skripsi saya.
-			</p>
-			
-			<p>
-			Saya membutuhkan responden untuk memberikan informasi terkait <span style="font-weight:bold;">tempat tinggal sementara</span>,
-			dan <span style="font-weight:bold;">tempat makan terfavorit</span> di sekitar Kampus UI Depok.
-			</p>
-			
-			<p>
-			Jika kamu merasa memenuhi persyaratan berikut,
-			</p>
-			<ol>
-				<li>Mahasiswa UI atau alumni UI tidak lebih dari 1 tahun.</li>
-				<li>Sedang tinggal secara sementara (baik kos, apartemen, kontrak, rumah kerabat, maupun pondok) di sekitar (<span style="text-decoration:underline">bukan di dalam</span>) kampus UI Depok.</li>
-			</ol>
-			<p>
-			dimohon kesediaannya untuk menjadi responden penelitian.
-			</p>
-			
-			<p>
-			Terimakasih.
-			</p>
-			<br />
-			<p>
-			Salam,<br /><br />Peneliti
-			</p>
-			
-			</div>
-		</div>
-		<div id="halaman2" class="card">
-			<div id="identitas" class="card-content">
-			<h2>Identitas diri</h2>
-			<form>
-			<p>Nama </p><input type="text" name="nama" pattern="[a-zA-Z ]+" required>
-			<p>Usia</p>
-			<p><input id="tl" class="kecil" type="number" min=0 max=25 name="tl" required> Tahun</p>
-			<p>Jenis kelamin </p>
-			<label for="jk-m">Laki-laki</label>
-			<input class="radio" type="radio" name="jk" id="jk-m" value="m" required>
-			<label for="jk-f">Perempuan</label>
-			<input class="radio" type="radio" name="jk" id="jk-f"value="f" required>
-			<p>NPM </p><input type="number" pattern="[\d]*" name="npm" inputmode="numeric" maxlength=16 required>
-			<!--<p>Jurusan: <input type="text" name="jurusan"/></p>-->
-			<p>Fakultas</p> 
-				<select name="fakultas" required>
-					<option value="FK">Fakultas Kesehatan</option>
-					<option value="FEB">Fakultas  Ekonomi dan Bisnis</option>
-					<option value="FH">Fakultas Hukum</option>
-					<option value="FT">Fakultas Teknik</option>
-					<option value="FF">Fakultas Farmasi</option>
-					<option value="FPSI">Fakultas Psikologi</option>
-					<option value="FASILKOM">Fakultas Ilmu Komputer</option>		
-					<option value="FKG">Fakultas Kedokteran Gigi</option>
-					<option value="FIK">Fakultas Ilmu Keperawatan</option>
-					<option value="FKM">Fakultas Kesehatan Masyarakat</option>
-					<option value="FIB">Fakultas Ilmu Budaya</option>
-					<option value="FISIP">Fakultas Ilmu Sosial dan Ilmu Politik</option>
-					<option value="FMIPA">Fakultas Matematika dan Ilmu Pengetahuan Alam</option>
-					<option value="FIA">Fakultas Ilmu Administrasi</option>
-					<option value="VOK">Program Vokasi</option>
-				</select>
-			<!--<p>Angkatan <input type="text" name="angkatan" /></p>-->
-			
-			<p>No. HP </p><input type="text" pattern="[\d\+]*" name="hp" required>
-			<br /><br />
-			<input id="submit" class="ui-button ui-widget ui-corner-all" type="submit" value="Selanjutnya">
-		</form>
-			</div>
-		</div>
-		<div id="halaman3" class="card">
-			<div id="kos" class="card-content">
-			<h2>Tempat tinggal sementara</h2>
-			<form>
-			<p>Nama tempat</p><input type="text" name="nama" maxlength="32" oninput="" value="" required>
-			<p>Alamat</p><input type="text" name="alamat" maxlength="128" oninput="" value="" />
-			<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>
-			<p>Lama tinggal</p>
-			<p><input class="kecil" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
-			&emsp;<input class="kecil" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</p>
-			<input id="submit_kos" class="ui-button ui-widget ui-corner-all" type="submit" value="Selanjutnya">
-			</form>
-			</div>
-		</div>
-		
-		<br />
-		<script type="text/javascript">
-		$(function(){
-			$(".radio").checkboxradio();
-			$("select").selectmenu();
-			//$("input").autocomplete();
-			$("#daftar").submit(function(evt){
-				evt.preventDefault();
-				var pwd = $("#p1").val();
-				var hpwd = Sha256.hash(pwd);
-				console.log(hpwd);
-				console.log("("+hpwd.length+")")
-				$("#p1").val(hpwd);
-				$("#p2").val(hpwd);
-				//$.post("daftar", $("#daftar").serialize(), function(data, status, jqXHR){
-				//	alert(data);
-				//});
-			});
-			/*
-			$( "#tl" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				minDate: "-30Y",
-				maxDate: "-15Y"
-			});*/
-		});
-
 		</script>
 	</body>
 </html>

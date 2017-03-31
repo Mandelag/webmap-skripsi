@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="background-color:#333;">
 	<head>
-		<title>Gambar Peta</title>
+		<title>WebMap Tempat Makan</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -19,10 +19,7 @@
 	<div class="floating" id="informasi">
 		<p>Tandai kos/kontrakan/tempat tinggal sementara anda.</p>
 	</div>
-	<div class="floating" id="ubahAttribut" style="display:none">
-		<p>Tererereres</p>
-	</div>
-	
+
 	<div id="map" class="map">
 	</div>
 
@@ -34,7 +31,7 @@
 			<h4>Arahan menuju tempat ini</h4>
 			<p>Jika kamu ingin mengundang teman kamu yang belum pernah ke tempat ini sama sekali, 
 			arahan seperti apa yang akan kamu berikan?</p>
-			<input type="text" name="alamat" maxlength="128" oninput="" value="" />
+			<input type="text" name="arahan" maxlength="128" oninput="" value="" />
 			<!--<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>-->
 			<h4>Lama tinggal</h4>
 			<p>Berapa lama kamu tinggal di tempat ini? (perkiraan)</p>
@@ -222,8 +219,18 @@
 		function represh(){
 			$("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.SOLVED.
 		}
-
+		$( function() {
+			$( "#dialog-message" ).dialog({
+			dialogClass: "no-close",
+			autoOpen: false,
+			  modal: true
+			});
+		  } );
 	</script>
-
+	<div id="dialog-message" title="Mengirim data..">
+		  <p>
+			Mengirim data ke server..
+		  </p>
+	</div>
 	</body>
 </html>

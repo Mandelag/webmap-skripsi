@@ -21,7 +21,7 @@ kosSource.setProperties({
 	idCounter: 0,
 	name: "Tempat tinggal",
 	type: "Point",
-	attributes: ['nama', 'alamat', 'lama_bulan', 'lama_hari'],
+	attributes: ['nama', 'arahan', 'lama_bulan', 'lama_hari'],
 	attdisplay: [true, true, false, false]
 });
 
@@ -583,17 +583,26 @@ $("#identitas-form").on("submit", function(evt){
 			//var data = JSON.parse(data);
 			
 			if ("Sukses" === data ){
-				alert("Sukses!");
-				window.location = "success.htm";
+				$("#dialog-message p").html("Sukses!<br /><br />Anda akan diredirect ke <a href='done.html'>halaman ini</a> secara otomatis..");
+				setTimeout(function(){
+					window.location = "done.html";
+				}, 2000);
 			}else {
-				alert("Hubungan ke server gagal. Harap tunggu beberapa saat.");
+				alert("Submit gagal, coba lagi.");
+				$("#dialog-message").dialog("close");
 			}
+			$("#kirim").prop("disabled", false);
+		}).fail(function(){
+			alert("Gagal terhubung dengan server. Silahkan tunggu beberapa saat.");
+			$("#dialog-message").dialog("close");
 			$("#kirim").prop("disabled", false);
 		});
 	}catch(e){
+		$("#dialog-message").dialog("close");
 		$("#kirim").prop("disabled", false);
 		console.log(e);
 	}
+	$("#dialog-message").dialog("open");
 	$("#kirim").prop("disabled", true);
 });
 
@@ -602,7 +611,7 @@ $("#identitas-form").on("submit", function(evt){
  * App Logic
  * 
  */
-var jumlah_tempat_makan = 2;
+var jumlah_tempat_makan = 3;
 var kosIdleMsg = "Gunakan tombol '+' di kanan bawah untuk menandai lokasi tempat tinggal sementara anda.";
 var kosDrawMsg = "Temukan dan klik lokasi tempat tinggal anda di peta...";
 var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit anda di Kukusan.<br/><br/>"+
@@ -618,8 +627,7 @@ var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")? <br/><br/>"
 					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
 					"  1. Berada di dalam bangunan permanen.<br />"+
 					"  2. Berada di luar tempat tinggal sementara.";
-var fav3DrawMsg = "Klik di peta...";
-var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir.";
+var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir, atau klik pada fitur di peta untuk revisi.";
 
 function kosIdle (){
 	console.log("idle!");
@@ -751,7 +759,7 @@ function fav2Finish (msg){
 
 function fav3Idle (){
 	console.log("idle!");
-	editInfoText(favDrawMsg);
+	editInfoText(fav3IdleMsg);
 
 	$("#tmain").off("click");
 	$("#tmain").on("click", function(){
@@ -761,7 +769,7 @@ function fav3Idle (){
 
 function fav3Draw (){
 	console.log("draw!");
-	editInfoText(fav3DrawMsg);
+	editInfoText(favDrawMsg);
 
 	$("#tmain").addClass("active");
 	
