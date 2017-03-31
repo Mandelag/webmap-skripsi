@@ -151,7 +151,7 @@ var maxx = ol.proj.transform([106.826, -6.356], 'EPSG:4326', 'EPSG:3857');
 
 var map = new ol.Map ({
 	target : "map",
-	layers : [osmLayer, surveyLayer, favoritLayer, kosLayer],
+	layers : [/*osmLayer, */surveyLayer, favoritLayer, kosLayer],
 	view : new ol.View({
 		minZoom: 16,
 		maxZoom: 19,
@@ -588,12 +588,12 @@ $("#identitas-form").on("submit", function(evt){
 					window.location = "done.html";
 				}, 2000);
 			}else {
-				alert("Submit gagal, coba lagi.");
+				alert("Server sedang bermasalah.\nCoba lagi dalam beberapa saat.");
 				$("#dialog-message").dialog("close");
 			}
 			$("#kirim").prop("disabled", false);
 		}).fail(function(){
-			alert("Gagal terhubung dengan server. Silahkan tunggu beberapa saat.");
+			alert("Gagal terhubung dengan server.\nCoba lagi dalam beberapa saat.");
 			$("#dialog-message").dialog("close");
 			$("#kirim").prop("disabled", false);
 		});
@@ -832,16 +832,16 @@ function editInfoText(msg){
 
 
 
-//window.onbeforeunload = function(evt) {
-//   var message = 'Apakah mau keluar dari aplikasi?\nData yang telah dimasukan akan terhapus.';
-//    if (typeof evt == 'undefined') {
-//        evt = window.event;
-//    }
-//    if (evt) {
-//        evt.returnValue = message;
-//    }
-//    return message;
-//}
+window.onbeforeunload = function(evt) {
+   var message = 'Apakah mau keluar dari aplikasi?\nData yang telah dimasukan akan terhapus.';
+    if (typeof evt == 'undefined') {
+        evt = window.event;
+    }
+    if (evt) {
+        evt.returnValue = message;
+    }
+    return message;
+}
 
 /* mulai aplikasi */
 kosIdle();
