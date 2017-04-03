@@ -28,15 +28,15 @@
 			<h4>Nama</h4>
 			<p>Nama tempat tinggal sementara</p>
 			<input type="text" class="req" name="nama" maxlength="32" oninput="" value="" >
-			<h4>Arahan menuju tempat ini</h4>
+			<h4>Arahan singkat menuju tempat ini</h4>
 			<p>Jika kamu ingin mengundang teman kamu yang belum pernah ke tempat ini sama sekali, 
 			arahan seperti apa yang akan kamu berikan?</p>
 			<input type="text" name="arahan" maxlength="128" oninput="" value="" />
 			<!--<p>Keterangan</p><textarea rows="4" cols="30" name="keterangan" maxlength="128" oninput="" ></textarea>-->
 			<h4>Lama tinggal</h4>
 			<p>Berapa lama kamu tinggal di tempat ini? (perkiraan)</p>
-			<span><input class="kecil req" type="number" name="lama_bulan" min=0 length="2" oninput="" value=""> Bulan
-			&emsp;<input class="kecil req" type="number" name="lama_hari" max=31 length="2" oninput="" value=""> Hari</span>
+			<span><input class="kecil req" type="number" name="lama_tahun" min=0 length="2" oninput="" value=""> Tahun
+			&emsp;<input class="kecil req" type="number" name="lama_bulan" max=12 length="2" oninput="" value=""> Bulan</span>
 			<hr />
 		</form>
 	</div>
@@ -194,7 +194,7 @@
 			<!--<p>Angkatan <input type="text" name="angkatan" /></p>-->
 			
 			<h4>No. HP / Email </h4>
-			<p>Digunakan untuk melakukan verifikasi data</p>
+			<p>Digunakan untuk melakukan verifikasi data.</p>
 			<!--<input type="text" pattern="[\d\+]*" name="hp" required>-->
 			<input type="text" name="hp" required>
 			<br />
