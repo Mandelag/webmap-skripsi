@@ -21,7 +21,7 @@ kosSource.setProperties({
 	idCounter: 0,
 	name: "Tempat tinggal",
 	type: "Point",
-	attributes: ['nama', 'arahan', 'lama_bulan', 'lama_hari'],
+	attributes: ['nama', 'arahan', 'lama_tahun', 'lama_bulan'],
 	attdisplay: [true, true, false, false]
 });
 
@@ -584,9 +584,10 @@ $("#identitas-form").on("submit", function(evt){
 			
 			if ("Sukses" === data ){
 				$("#dialog-message p").html("Sukses!<br /><br />Anda akan diredirect ke <a href='done.html'>halaman ini</a> secara otomatis..");
+				window.onbeforeunload = function(){};
 				setTimeout(function(){
 					window.location = "done.html";
-				}, 2000);
+				}, 1000);
 			}else {
 				alert("Server sedang bermasalah.\nCoba lagi dalam beberapa saat.");
 				$("#dialog-message").dialog("close");
@@ -627,7 +628,7 @@ var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")? <br/><br/>"
 					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
 					"  1. Berada di dalam bangunan permanen.<br />"+
 					"  2. Berada di luar tempat tinggal sementara.";
-var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir, atau klik pada fitur di peta untuk revisi.";
+var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir, atau klik pada fitur yang telah ditandai di atas peta untuk meninjau kembali isian.";
 
 function kosIdle (){
 	console.log("idle!");
