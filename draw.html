@@ -24,7 +24,7 @@
 	</div>
 
 	<div id="kosLayerAttribute" title="Keterangan Tempat Tinggal" class="ui-dialog"> <!-- untuk point -->
-		<form class="attr" target="#">
+		<form id="kos_form" class="attr" target="#">
 			<h4>Nama</h4>
 			<p>Nama tempat tinggal sementara</p>
 			<input type="text" class="req" name="nama" maxlength="32" oninput="" value="" >
@@ -42,7 +42,6 @@
 			Jika sudah tidak, isi dengan rentang waktu semenjak kamu meninggalkan tempat ini (perkiraan).</p>
 			<span><input class="kecil" type="number" name="selesai_tahun" min=0 length="2" oninput="" value=""> Tahun
 			&emsp;<input class="kecil" type="number" name="selesai_bulan" max=12 length="2" oninput="" value=""> Bulan</span>
-			<hr />
 		</form>
 	</div>
 	
@@ -160,7 +159,6 @@
 				</li>
 				
 			</ol>
-			<hr />
 		</form>
 	</div>
 	
@@ -205,8 +203,7 @@
 			<!--<input type="text" pattern="[\d\+]*" name="hp" required>-->
 			<input type="text" name="hp" required>
 			<br />
-			<hr />
-			<button type="submit" id="kirim" class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>Selesai</button>
+			<button type="submit" id="kirim" class="ui-button ui-corner-all" style="display:none;"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>Selesai</button>
 		</form>
 	</div>
 	

@@ -431,7 +431,7 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 
 	represh();
 	
-	var buttonSubmit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>OK</button>');
+	var buttonSubmit = $('<button class="ui-button ui-corner-all" id="zubmit" style="display:none;"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>OK</button>');
 	
 	jQueryForm.children("form").on('submit', function(evt){
 		evt.preventDefault();
@@ -525,7 +525,20 @@ $("#kosLayerAttribute").dialog({
 	hide: {
 		effect: "fade",
 		duration: 300
-	}
+	},
+	buttons: [
+    {
+      text: "OK",
+      icons: {
+		primary: "ui-icon-check"
+		},
+      click: function() {
+        $( "#zubmit" ).trigger("click");
+        //alert("hey");
+        //$( this ).dialog( "close" );
+      }
+    }
+  ]
 });
 
 $("#makanFavoritAttribute").dialog({
@@ -543,7 +556,20 @@ $("#makanFavoritAttribute").dialog({
 	hide: {
 		effect: "fade",
 		duration: 300
-	}
+	},
+    
+	buttons: [
+    {
+      text: "OK",
+      icons: {
+		primary: "ui-icon-check"
+	  },
+      click: function() {
+		$( "#zubmit" ).trigger("click");
+        //$( this ).dialog( "close" );
+      }
+    }
+  ]
 });
 
 $("#identitas").dialog({
@@ -560,7 +586,18 @@ $("#identitas").dialog({
 	hide: {
 		effect: "fade",
 		duration: 300
-	}
+	},
+	buttons: [
+    {
+      text: "OK",
+      icons: {
+		primary: "ui-icon-check"
+	  },
+      click: function() {
+		$( "#zubmit" ).trigger("click");
+        //$( this ).dialog( "close" );
+      }
+    }]
 });
 
 $("#identitas-form").on("submit", function(evt){
