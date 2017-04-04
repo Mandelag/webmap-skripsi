@@ -256,7 +256,6 @@ function openAttributeOverlay (source, feature, msg) {
 			containerDialog = $("#kosLayerAttribute");
 		} else /*if (layer == favoritSource)*/{
 			containerDialog = $("#makanFavoritAttribute");
-			$("#keterangan").html("Favorit #"+feature.getProperties()["peringkat"]);
 		}
 		
 		formDialog = openAttributeEditorForm2(source, feature, containerDialog, "updateAttribute");
