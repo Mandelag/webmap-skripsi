@@ -37,6 +37,11 @@
 			<p>Berapa lama kamu tinggal di tempat ini? (perkiraan)</p>
 			<span><input class="kecil req" type="number" name="lama_tahun" min=0 length="2" oninput="" value=""> Tahun
 			&emsp;<input class="kecil req" type="number" name="lama_bulan" max=12 length="2" oninput="" value=""> Bulan</span>
+			<h4>Apakah kamu masih tinggal di tempat ini?</h4>
+			<p>Jika iya, kosongkan jawaban.
+			Jika sudah tidak, isi dengan rentang waktu semenjak kamu meninggalkan tempat ini (perkiraan).</p>
+			<span><input class="kecil" type="number" name="selesai_tahun" min=0 length="2" oninput="" value=""> Tahun
+			&emsp;<input class="kecil" type="number" name="selesai_bulan" max=12 length="2" oninput="" value=""> Bulan</span>
 			<hr />
 		</form>
 	</div>
@@ -54,7 +59,11 @@
 			<textarea rows="4" cols="30" name="keterangan" maxlength="512" oninput="" ></textarea>
 			
 			<h3>Penilaian Tempat</h3>
-			<p>Berikan penilaian terhadap tempat makan ini.<br />1 = sangat tidak setuju<br /> 4 = sangat setuju</p>
+			<p>Berikan penilaian terhadap tempat makan ini.<br />
+			1 = sangat tidak setuju<br />
+			2 = tidak setuju<br />
+			3 = setuju <br/>
+			4 = sangat setuju</p>
 			<ol>
 				<h4>Biaya</h4>
 				<li><p>Harga makanan dan minuman di tempat ini terjangkau.</p>

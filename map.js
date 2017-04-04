@@ -21,7 +21,7 @@ kosSource.setProperties({
 	idCounter: 0,
 	name: "Tempat tinggal",
 	type: "Point",
-	attributes: ['nama', 'arahan', 'lama_tahun', 'lama_bulan'],
+	attributes: ['nama', 'arahan', 'lama_tahun', 'lama_bulan', 'selesai_tahun', 'selesai_bulan'],
 	attdisplay: [true, true, false, false]
 });
 
@@ -522,6 +522,7 @@ $("#kosLayerAttribute").dialog({
 		effect: "fade",
 		duration: 300
 	},
+	maxHeight: 450,
 	hide: {
 		effect: "fade",
 		duration: 300
