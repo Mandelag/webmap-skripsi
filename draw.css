@@ -142,7 +142,7 @@ td div {
 	display: none;
 }
 
-input:invalid {
+input:invalid, textarea:invalid {
 	 box-shadow: none;
 }
 
