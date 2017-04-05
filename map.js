@@ -608,7 +608,6 @@ $("#makanFavoritAttribute").dialog({
 	  },
       click: function() {
 		$( "#zubmit" ).trigger("click");
-        $( this ).dialog( "close" );
       }
     }
   ]
