@@ -213,7 +213,7 @@ function selesai () {
     }]);
 
 	
-	$("#tmain").html("<a>&gt;</a>");
+	$("#tmain").html("<span>&gt;</span>");
 	$("#tmain").css("background-color", "rgba(0, 256, 0, 0.6)");
 	
 	$("#tmain").off("click");	
@@ -240,9 +240,6 @@ function editInfoText(msg){
 		});
 	});
 }
-
-
-
 
 window.onbeforeunload = function(evt) {
    var message = 'Apakah mau keluar dari aplikasi?\nData yang telah dimasukan akan terhapus.';

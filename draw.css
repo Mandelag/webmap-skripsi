@@ -47,22 +47,15 @@ p{
 	border: 2px solid #fff;
 	border-radius: 3.25em;
 	box-shadow: 0 9px 9px #ccc;
+	cursor: pointer; //kalo pake pointer.. muncul kotak aneh setelah diklik..//dibenerin dengan menggunakan span.
 
 }
 
 
-.round-button a {
-    display:block;
-	float:left;
-	width:100%;
-	text-align:center;
+.round-button span {
 	color:#fff;
-    font-family:"Times";
-    font-size:2.75em;
-    font-weight:bold;
-    text-decoration:none;
-	border-radius: 3.25em;
-	cursor: default; //kalo pake pointer.. muncul kotak aneh setelah diklik..
+    font-family:"Arial";
+    font-size:2.8em;
 }
 
 .round-button:active, .round-button.active {
@@ -108,7 +101,7 @@ fieldset {
 }
 
 input {
-	width:100%;
+	width:95%;
 }
 input.kecil {
 	width: 20%;

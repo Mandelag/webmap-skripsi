@@ -244,8 +244,8 @@ function openAttributeOverlay (source, feature, msg) {
 	var line = $('<div style="width:100%"></div>');
 	//line.css("width", "100%");
 	line.css("margin","auto");
-	var buttonEdit = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span> Ubah Info</button>');
-	var buttonMove = $('<button class="ui-button ui-corner-all"><span class="ui-icon ui-icon-pin-s" style="zoom: 100%;"></span> Pindahkan</button>');
+	var buttonEdit = $('<button class="ui-button ui-corner-all" style="padding-left:0;padding-right:0;width:45%;"><span class="ui-icon ui-icon-pencil" style="zoom: 100%;"></span>Ubah Info</button>');
+	var buttonMove = $('<button class="ui-button ui-corner-all" style="padding-left:0;padding-right:0;width:45%;"><span class="ui-icon ui-icon-pin-s" style="zoom: 100%;"></span>Pindahkan</button>');
 	
 	buttonEdit.on("click", function(){
 		
@@ -306,6 +306,7 @@ function openAttributeOverlay (source, feature, msg) {
 	});
 	
 	line.append(buttonMove);
+	line.append('<span style="width:10%;">&nbsp;&nbsp;</span>');
 	line.append(buttonEdit);
 	containerHtml.append(line);
 }
@@ -636,7 +637,6 @@ $("#identitas").dialog({
 	  },
       click: function() {
 		$( "#kirim" ).trigger("click");
-        //$( this ).dialog( "close" );
       }
     }]
 });

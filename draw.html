@@ -13,9 +13,10 @@
 		<link rel="stylesheet" type="text/css" href="draw.css" />
 	</head>
 	<body style="opacity:0;">
-	<div class="round-button" id="tmain">
+	<!--<div class="round-button" id="tmain">
 		<a>+</a>
-	</div>
+	</div>-->
+	<div class="round-button" id="tmain"><span>+</span></div>
 	<div class="floating" id="informasi">
 		<p>Tandai kos/kontrakan/tempat tinggal sementara anda.</p>
 	</div>
@@ -37,9 +38,9 @@
 			<p>Berapa lama kamu tinggal di tempat ini? (perkiraan)</p>
 			<span><input class="kecil req" type="number" name="lama_tahun" min=0 length="2" oninput="" value=""> Tahun
 			&emsp;<input class="kecil req" type="number" name="lama_bulan" max=12 length="2" oninput="" value=""> Bulan</span>
-			<h4>Apakah kamu masih tinggal di tempat ini?</h4>
-			<p>Jika masih, isi jawaban dengan angka 0.
-			Jika sudah tidak, isi dengan rentang waktu semenjak kamu meninggalkan tempat ini (perkiraan).</p>
+			<h4>Status tinggal</h4>
+			<p>Apakah kamu masih tinggal di tempat ini? Jika masih, isi jawaban dengan angka 0.
+			Jika tidak, isi dengan rentang waktu semenjak kamu meninggalkan tempat ini (perkiraan).</p>
 			<span><input class="kecil req" type="number" name="selesai_tahun" min=0 length="2" oninput="" value=""> Tahun
 			&emsp;<input class="kecil" type="number" name="selesai_bulan" max=12 length="2" oninput="" value=""> Bulan</span>
 		</form>
