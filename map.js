@@ -483,7 +483,7 @@ function updateAttribute(input, source, featureId) {
 	//var gj = new ol.format.GeoJSON();
 	//console.log(gj.writeFeatures(source.getFeatures()));
 	feature.setProperties(propBaru);	
-	console.log(feature.getProperties());
+	//console.log(feature.getProperties());
 }
 
 

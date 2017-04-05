@@ -199,7 +199,7 @@ function selesai () {
 		primary: "ui-icon-check"
 	  },
       click: function() {
-        $( this ).dialog( "close" );
+        $( "#zubmit" ).trigger("click");
       }
     }]);
 	$("#makanFavoritAttribute").dialog("option", "buttons", [{
@@ -208,7 +208,7 @@ function selesai () {
 		primary: "ui-icon-check"
 	  },
       click: function() {
-        $( this ).dialog( "close" );
+        $( "#zubmit" ).trigger("click");
       }
     }]);
 
