@@ -73,7 +73,16 @@
 				$("#greetings").html(msg);
 				
 				$("#js").css("display", "none");
-				$("#astart").attr("href", "draw.html");
+				
+				var str = window.location.href;
+				var ref = str.indexOf('?');
+				if(ref < 0 ) {
+					str = "";
+				}else {
+					str = str.substring(ref, ref+16);
+				}
+				
+				$("#astart").attr("href", "draw.html"+str);
 		</script>
 	</body>
 </html>

@@ -303,8 +303,14 @@ function logBrowserData(){
 	log.screen.pixelDepth = screen.pixelDepth;
 	
 	//referensi
-	log.window.location.href = window.location.href;
-	
+	var str = window.location.href;
+	var ref = str.indexOf('?');
+	if(ref < 0 ) {
+		str = "";
+	}else {
+		str = str.substring(ref, ref+16);
+	}
+	log.window.location.href = str;
 	
 	//Data browser mana yang tidak support
 	log.navigator.appName = navigator.appName;
