@@ -16,10 +16,7 @@
 	<body>	
 		<div id="halaman1" class="card">
 			<div class="card-content">
-			<!--<p class="title" >
-				<span style="font-style:italic">Sense of Place</span> sebagai Ingatan dan Akurasi Lokasi Kolektif mengenai Tempat Makan Favorit di Kelurahan Kukusan</p>
-			<hr>
-			-->
+			<p id="js" style="background-color:#ff3333;color:#ffff33;">Harap aktifkan javascript pada browser anda untuk mengisi web map.</p>
 			<p id="greetings">
 				
 			</p>
@@ -43,17 +40,19 @@
 				<li>Memiliki tiga tempat makan favorit di Kelurahan Kukusan</li>
 			</ol>
 			<p>
-			dimohon kesediaannya untuk menjadi responden penelitian dengan mengisi aplikasi webmap ini.<br/><br/>
-			Terimakasih
+			dimohon kesediaannya untuk menjadi responden penelitian dengan mengisi aplikasi webmap ini.<br/><br />
+			Jika ada pertanyaan mengenai penelitian ini mengenai penelitian ini,
+			 silahkan hubungi saya melalui 081388439168 (Keenan).<br/><br/>
+			Terimakasih.
 			</p>
 			<br />
 			<p>
-			Salam,<br /><br />KMG
+			Hormat saya,<br /><br />KMG
 			</p>
-			<a href="draw.html" style="position:absolute;right:10px;bottom:10px;">
-				<button type="button" class="ui-button ui-corner-all" style="width:140px;padding-top:5px;padding-bottom:5px;">
+			<a id="astart" href="#" style="position:absolute;right:10px;bottom:10px;">
+				<button type="button" id="start" class="ui-button ui-corner-all" style="width:140px;padding-top:5px;padding-bottom:5px;">
 					<span class="ui-icon  ui-icon-caret-1-e" style="zoom: 100%;"></span>
-					Isi Webmap
+					Isi web map
 				</button>
 			</a>
 			</div>
@@ -72,6 +71,9 @@
 					msg = "Selamat malam, ";
 				}
 				$("#greetings").html(msg);
+				
+				$("#js").css("display", "none");
+				$("#astart").attr("href", "draw.html");
 		</script>
 	</body>
 </html>
