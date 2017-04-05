@@ -404,30 +404,26 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 		var inputElSize = inputEl.length;
 		
 		if(inputElSize > 0 ) {
-			if(inputElSize == 1 ) { //
+			if(inputElSize <= 1 ) { //
 				inputEl.val(props[attrib]);
 				inputEl.attr("oninput", cb);
 				//inputEl.val("");
+				
 			} else if(inputElSize > 1){  // for checkbox or radio button 
 				inputEl.attr("onchange", cb);
-
 				//implemented for radio button only..
-				var radioop = [];
 				inputEl.each(function(i, el){
-					if(props[attrib] == $(this).val()){
-						$(this).prop("checked", true);
-					}else {
-						$(this).prop("checked", false);
-					}
-				});
-				
+					//coba.. VVVV
+					//$(this).prop("checked", props[attrib] == $(this).val());
+					el.checked = props[attrib] == $(this).val(); //ga tau sync ga yah ama jquery buttonnya?
+				});	
 			}
 		}
 	}
 	
-	jQueryForm.find("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
+	//jQueryForm.find("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
 
-	represh();
+	//represh();
 
 	var buttonCancel = $('<button class="ui-button ui-corner-all" id="zancel" style="display:none;"><span class="ui-icon ui-icon-trash" style="zoom: 100%;"></span>OK</button>');
 	var buttonSubmit = $('<button class="ui-button ui-corner-all" id="zubmit" style="display:none;"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>OK</button>');

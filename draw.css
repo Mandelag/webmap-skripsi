@@ -48,7 +48,6 @@ p{
 	border-radius: 3.25em;
 	box-shadow: 0 9px 9px #ccc;
 	cursor: pointer; //kalo pake pointer.. muncul kotak aneh setelah diklik..//dibenerin dengan menggunakan span.
-
 }
 
 
@@ -141,6 +140,10 @@ td div {
 
 .ol-attribution{
 	display: none;
+}
+
+input:invalid {
+	 box-shadow: none;
 }
 
 
