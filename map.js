@@ -337,7 +337,7 @@ function noEdit() {
  * Setelah selesai akan memanggil callback(str)
  * 
  */
-function draw(attributDefault, defaultValue, source, callback) { //dari html manggil variabel langsung.
+function draw(attributDefault, defaultValue, source, finishCallback, cancelCallback) { //dari html manggil variabel langsung.
 	
 	selectInteraction.getFeatures().clear();
 	
@@ -375,11 +375,11 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 				$("#keterangan").html("Favorit #"+featureHasil.getProperties()["peringkat"]);
 			}
 			
-			formDialog = openAttributeEditorForm2(source, featureHasil, formDialog, "updateAttribute", callback);
+			formDialog = openAttributeEditorForm2(source, featureHasil, formDialog, "updateAttribute", finishCallback, cancelCallback);
 			formDialog.dialog("open");
 		}, 100); //memastikan kalau atributnya sudah terpasang ketika membuka form ini.
 		map.removeInteraction(currentDrawInteraction);
-		callback("drawend");
+		finishCallback("drawend");
 	});
 		
 	map.addInteraction(currentDrawInteraction); /* tambahkan interaction sesuai dengan source */
@@ -389,14 +389,13 @@ function draw(attributDefault, defaultValue, source, callback) { //dari html man
 /* v2 
  * jQueryForm is more like dialog container.. usually div, not form element
  * */
-function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, callback=undefined) {
+function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, finishCallback=undefined, cancelCallback=undefined) {
 	var id = feature.getId();
 	
 	var cb = stringCallback+"(this, "+source.getProperties()["variableName"]+", \""+id+"\")";
 	
 	var props = feature.getProperties();
 	var attribs = source.getProperties()["attributes"];
-	console.log(attribs);
 	
 	for(i=0;i<attribs.length;i++){
 		var attrib = attribs[i];
@@ -412,10 +411,8 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 				inputEl.attr("onchange", cb);
 
 				//implemented for radio button only..
-				console.log(inputEl);
 				var radioop = [];
 				inputEl.each(function(i, el){
-					console.log(props[attrib] + " == " + $(this).val());
 					if(props[attrib] == $(this).val()){
 						$(this).prop("checked", true);
 					}else {
@@ -430,24 +427,48 @@ function openAttributeEditorForm2 (source, feature, jQueryForm, stringCallback, 
 	jQueryForm.find("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
 
 	represh();
-	
+
+	var buttonCancel = $('<button class="ui-button ui-corner-all" id="zancel" style="display:none;"><span class="ui-icon ui-icon-trash" style="zoom: 100%;"></span>OK</button>');
 	var buttonSubmit = $('<button class="ui-button ui-corner-all" id="zubmit" style="display:none;"><span class="ui-icon ui-icon-check" style="zoom: 100%;"></span>OK</button>');
 	
 	jQueryForm.children("form").on('submit', function(evt){
 		evt.preventDefault();
 		
 		jQueryForm.dialog("close");		
-		if(!(typeof callback === "undefined")) {
-			//console.log("hmm... kok not undefined");
-			callback("finish");
+		if(!(typeof finishCallback === "undefined")) {
+			finishCallback("finish");
 		}
-		jQueryForm.children("form").off('submit');
+		jQueryForm.children("form").off("submit");
 		buttonSubmit.remove()
+		buttonCancel.off("click");
+		buttonCancel.remove();
 	});
 	
+	if(!(typeof cancelCallback === "undefined")) {
+		buttonCancel.on("click", function(evt){
+			
+			source.removeFeature(source.getFeatureById(feature.getId()));
+			//COUNTER--;
+			
+			evt.preventDefault();
+		
+			jQueryForm.dialog("close");	
+			
+			if(!(typeof cancelCallback === "undefined")) {
+				cancelCallback();
+			}
+			jQueryForm.children("form").off("submit");
+			buttonSubmit.remove();
+			buttonCancel.off("click");
+			buttonCancel.remove();
+		});
+		jQueryForm.children("form").append(buttonCancel);
+	}
+	
+	
 	jQueryForm.children("form").append(buttonSubmit);
+	
 	jQueryForm.find("input[type='radio']").checkboxradio("refresh"); //entah mengapa tidak berefek pada mobile.
-
 	return jQueryForm;
 }
 
@@ -527,11 +548,21 @@ $("#kosLayerAttribute").dialog({
 		duration: 300
 	},
 	buttons: [
+	{
+		text: "Cancel",
+		icons: {
+			primary: "ui-icon-trash"
+		},
+		click: function(){
+			$( "#zancel" ).trigger("click");
+			$(this).dialog("close");
+		}
+	},
     {
       text: "OK",
       icons: {
 		primary: "ui-icon-check"
-		},
+	  },
       click: function() {
         $( "#zubmit" ).trigger("click");
         //alert("hey");
@@ -559,6 +590,17 @@ $("#makanFavoritAttribute").dialog({
 	},
     
 	buttons: [
+	{
+		text: "Cancel",
+		icons: {
+			primary: "ui-icon-trash"
+		},
+		click: function(){
+			console.log("click biasa..");
+			$( "#zancel" ).trigger("click");
+			$(this).dialog("close");
+		}
+	},
     {
       text: "OK",
       icons: {
@@ -566,7 +608,7 @@ $("#makanFavoritAttribute").dialog({
 	  },
       click: function() {
 		$( "#zubmit" ).trigger("click");
-        //$( this ).dialog( "close" );
+        $( this ).dialog( "close" );
       }
     }
   ]
@@ -594,7 +636,7 @@ $("#identitas").dialog({
 		primary: "ui-icon-check"
 	  },
       click: function() {
-		$( "#zubmit" ).trigger("click");
+		$( "#kirim" ).trigger("click");
         //$( this ).dialog( "close" );
       }
     }]
@@ -643,246 +685,6 @@ $("#identitas-form").on("submit", function(evt){
 	$("#dialog-message").dialog("open");
 	$("#kirim").prop("disabled", true);
 });
-
-
-/*
- * App Logic
- * 
- */
-var jumlah_tempat_makan = 3;
-var kosIdleMsg = "Gunakan tombol '+' di kanan bawah untuk menandai lokasi tempat tinggal sementara anda.";
-var kosDrawMsg = "Temukan dan klik lokasi tempat tinggal anda di peta...";
-var fav1IdleMsg = "Dengan tombol yang sama, tambahkan tempat makan favorit anda di Kukusan.<br/><br/>"+
-					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
-					"  1. Berada di dalam bangunan permanen.<br />"+
-					"  2. Berada di luar tempat tinggal sementara.";
-var favDrawMsg = "Klik di peta...";
-var fav2IdleMsg = "Tempat makan favorit (2/"+jumlah_tempat_makan+")? <br/><br/>"+
-					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
-					"  1. Berada di dalam bangunan permanen.<br />"+
-					"  2. Berada di luar tempat tinggal sementara.";
-var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")? <br/><br/>"+
-					"<span id='kriteria-tm'>Kriteria tempat makan:</span><br />"+
-					"  1. Berada di dalam bangunan permanen.<br />"+
-					"  2. Berada di luar tempat tinggal sementara.";
-var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir, atau klik pada fitur yang telah ditandai di atas peta untuk meninjau kembali isian.";
-
-function kosIdle (){
-	console.log("idle!");
-	editInfoText(kosIdleMsg);
-	$("#tmain").off("click");
-	$("#tmain").on("click", function(){
-		kosDraw();
-	});
-}
-
-function kosDraw (){
-	console.log("draw!");
-	editInfoText(kosDrawMsg);
-
-	$("#tmain").addClass("active");
-	
-	$("#tmain").off("click");	
-	$("#tmain").on("click", function(){
-		kosCancel();
-	});
-	
-	draw('id','1',kosSource,kosFinish);	
-}
-
-function kosCancel (){
-	noEdit();
-	$("#tmain").removeClass("active");
-	console.log("cancel :(");
-	kosIdle();
-}
-
-function kosFinish (msg){
-	if(msg == "drawend") {
-		console.log("attribut!");
-		$("#tmain").removeClass("active");
-	}else if(msg == "finish") {
-		$("#tmain").off("click");
-		console.log("FINISH!");
-		fav1Idle();
-	}
-};
-
-function fav1Idle (){
-	console.log("idle!");
-	editInfoText(fav1IdleMsg);
-
-	$("#tmain").off("click");
-	$("#tmain").on("click", function(){
-		fav1Draw();
-	});
-}
-
-function fav1Draw (){
-	console.log("draw!");
-	editInfoText(favDrawMsg);
-
-	$("#tmain").addClass("active");
-	
-	$("#tmain").off("click");	
-	$("#tmain").on("click", function(){
-		fav1Cancel();
-	});
-	
-	draw('peringkat','1',favoritSource,fav1Finish);	
-}
-
-function fav1Cancel (){
-	noEdit();
-	$("#tmain").removeClass("active");
-	console.log("cancel :(");
-	fav1Idle();
-}
-
-function fav1Finish (msg){
-	if(msg == "drawend") {
-		console.log("attribut!");
-		$("#tmain").removeClass("active");
-	}else if(msg == "finish") {
-		$("#tmain").off("click");
-		console.log("FINISH!");
-
-		//selesai(); //jump. nanti diganti.
-		fav2Idle();
-	}
-};
-
-function fav2Idle (){
-	console.log("idle!");
-	editInfoText(fav2IdleMsg);
-
-	$("#tmain").off("click");
-	$("#tmain").on("click", function(){
-		fav2Draw();
-	});
-}
-
-function fav2Draw (){
-	console.log("draw!");
-	editInfoText(favDrawMsg);
-
-	$("#tmain").addClass("active");
-	
-	$("#tmain").off("click");	
-	$("#tmain").on("click", function(){
-		fav2Cancel();
-	});
-	
-	draw('peringkat','2',favoritSource,fav2Finish);	
-}
-
-function fav2Cancel (){
-	noEdit();
-	$("#tmain").removeClass("active");
-	console.log("cancel :(");
-	fav2Idle();
-}
-
-function fav2Finish (msg){
-	if(msg == "drawend") {
-		console.log("attribut!");
-		$("#tmain").removeClass("active");
-	}else if(msg == "finish") {
-		$("#tmain").off("click");
-		console.log("FINISH!");
-		//selesai(); //temporary
-		fav3Idle();
-	}
-};
-
-function fav3Idle (){
-	console.log("idle!");
-	editInfoText(fav3IdleMsg);
-
-	$("#tmain").off("click");
-	$("#tmain").on("click", function(){
-		fav3Draw();
-	});
-}
-
-function fav3Draw (){
-	console.log("draw!");
-	editInfoText(favDrawMsg);
-
-	$("#tmain").addClass("active");
-	
-	$("#tmain").off("click");	
-	$("#tmain").on("click", function(){
-		fav3Cancel();
-	});
-	
-	draw('peringkat','3',favoritSource,fav3Finish);	
-}
-
-function fav3Cancel (){
-	noEdit();
-	$("#tmain").removeClass("active");
-	console.log("cancel :(");
-	fav3Idle();
-}
-
-function fav3Finish (msg){
-	if(msg == "drawend") {
-		console.log("attribut!");
-		$("#tmain").removeClass("active");
-	}else if(msg == "finish") {
-		$("#tmain").off("click");
-		console.log("FINISH! bgt..");
-		selesai();
-	}
-};
-
-function selesai () {
-	editInfoText(selesaiMsg);
-	$("#tmain").html("<a>&gt;</a>");
-	$("#tmain").css("background-color", "rgba(0, 256, 0, 0.6)");
-	
-	$("#tmain").off("click");	
-	$("#tmain").on("click", function(evt){
-		$("#identitas").dialog("open");
-	});
-	selectInteraction.on('select', defaultSelectFunction);
-	map.addInteraction(selectInteraction);
-}
-
-
-
-var waktuMulaiServer;
-
-var tmain_isPressed = false;
-var tahapan = 0;
-
-function editInfoText(msg){
-	$("#informasi").fadeOut(150, function(){
-		$("#informasi").html("<p>"+msg+"</p>");
-		$("#informasi").css("background-color", "rgba(256,256,0,0.6)");
-		$("#informasi").fadeIn(150, function(){
-			$("#informasi").animate({"background-color":"rgba(256,256,256,0.6)"}, 300);
-		});
-	});
-}
-
-
-
-
-window.onbeforeunload = function(evt) {
-   var message = 'Apakah mau keluar dari aplikasi?\nData yang telah dimasukan akan terhapus.';
-    if (typeof evt == 'undefined') {
-        evt = window.event;
-    }
-    if (evt) {
-        evt.returnValue = message;
-    }
-    return message;
-}
-
-/* mulai aplikasi */
-kosIdle();
 
 function getSourceGeoJSON(source) {
 	var gj = new ol.format.GeoJSON(); //kasih proyeksi nanti..epsg:4326
