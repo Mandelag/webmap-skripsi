@@ -1,10 +1,4 @@
-$(function () {
-	//$("body").show();
-	$("body").animate({opacity: 1},500, "swing", function(){
-		$("html").css("background-color", "white");
-	});
-});
-
+var log = {};
 /**********************
  * MAP RELATED AMANNN *
  **********************/
@@ -638,6 +632,7 @@ $("#identitas").dialog({
 });
 
 $("#identitas-form").on("submit", function(evt){
+	log.submit = Math.round(new Date().getTime()/1000);
 	evt.preventDefault();
 	//disable submit button
 	$("#kirim").prop("disabled", true);
@@ -648,9 +643,11 @@ $("#identitas-form").on("submit", function(evt){
 	});
 	var kosanJSON = gjsWriter.writeFeatures(kosSource.getFeatures());
 	var favJSON = gjsWriter.writeFeatures(favoritSource.getFeatures());
+	var logJSON = JSON.stringify(log);
+	//console.log(logJSON);
 	
-	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(favJSON);
-	console.log(request);
+	var request = forms + "&kosLayer=" + encodeURI(kosanJSON) + "&favoritLayer="+ encodeURI(favJSON) + "&log=" + encodeURI(logJSON);
+	//console.log(request);
 	try {
 		$.post( "submit-pg.php", request, function( data ) {
 			console.log(data);
@@ -685,3 +682,12 @@ function getSourceGeoJSON(source) {
 	var gj = new ol.format.GeoJSON(); //kasih proyeksi nanti..epsg:4326
 	return gj.writeFeatures(source.getFeatures());
 }
+
+$(function () {
+	//$("body").show();
+	$("body").animate({opacity: 1},500, "swing", function(){
+		$("html").css("background-color", "white");
+	});
+});
+
+	

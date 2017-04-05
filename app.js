@@ -19,8 +19,17 @@ var fav3IdleMsg = "Tempat makan favorit (3/"+jumlah_tempat_makan+")? <br/><br/>"
 					"  1. Berada di dalam bangunan permanen.<br />"+
 					"  2. Berada di luar tempat tinggal sementara.";
 var selesaiMsg = "Input data selesai. Klik tombol '>' untuk lanjut ke tahap akhir, atau klik pada fitur yang telah ditandai di atas peta untuk meninjau kembali isian.";
+log.koscancel = 0;
+log.tm1cancel = 0;
+log.tm2cancel = 0;
+log.tm3cancel = 0;
+log.revisiKos = 0;
+log.revisiTm  = 0;
+var date = new Date();
+
 
 function kosIdle (){
+	log.kos1 = Math.round(date.getTime()/1000);
 	console.log("idle!");
 	editInfoText(kosIdleMsg);
 	$("#tmain").off("click");
@@ -30,9 +39,9 @@ function kosIdle (){
 }
 
 function kosDraw (){
+	log.kos2 = Math.round(date.getTime()/1000);
 	console.log("draw!");
 	editInfoText(kosDrawMsg);
-
 	$("#tmain").addClass("active");
 	
 	$("#tmain").off("click");	
@@ -44,6 +53,7 @@ function kosDraw (){
 }
 
 function kosCancel (){
+	log.koscancel++;
 	noEdit();
 	$("#tmain").removeClass("active");
 	console.log("cancel :(");
@@ -52,9 +62,11 @@ function kosCancel (){
 
 function kosFinish (msg){
 	if(msg == "drawend") {
+		log.kos3 = Math.round(date.getTime()/1000);
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
+		log.kos4 = Math.round(date.getTime()/1000);
 		$("#tmain").off("click");
 		console.log("FINISH!");
 		fav1Idle();
@@ -62,6 +74,7 @@ function kosFinish (msg){
 };
 
 function fav1Idle (){
+	log.tm11 = Math.round(date.getTime()/1000);;
 	console.log("idle!");
 	editInfoText(fav1IdleMsg);
 
@@ -72,6 +85,7 @@ function fav1Idle (){
 }
 
 function fav1Draw (){
+	log.tm12 = Math.round(date.getTime()/1000);;
 	console.log("draw!");
 	editInfoText(favDrawMsg);
 
@@ -86,6 +100,7 @@ function fav1Draw (){
 }
 
 function fav1Cancel (){
+	log.tm1cancel++;
 	noEdit();
 	$("#tmain").removeClass("active");
 	console.log("cancel :(");
@@ -94,9 +109,11 @@ function fav1Cancel (){
 
 function fav1Finish (msg){
 	if(msg == "drawend") {
+		log.tm13 = Math.round(date.getTime()/1000);;
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
+		log.tm14 = Math.round(date.getTime()/1000);;
 		$("#tmain").off("click");
 		console.log("FINISH!");
 
@@ -106,6 +123,7 @@ function fav1Finish (msg){
 };
 
 function fav2Idle (){
+	log.tm21 = Math.round(date.getTime()/1000);;
 	console.log("idle!");
 	editInfoText(fav2IdleMsg);
 
@@ -116,6 +134,7 @@ function fav2Idle (){
 }
 
 function fav2Draw (){
+	log.tm22 = Math.round(date.getTime()/1000);;
 	console.log("draw!");
 	editInfoText(favDrawMsg);
 
@@ -130,6 +149,7 @@ function fav2Draw (){
 }
 
 function fav2Cancel (){
+	log.tm2cancel++;
 	noEdit();
 	$("#tmain").removeClass("active");
 	console.log("cancel :(");
@@ -138,9 +158,11 @@ function fav2Cancel (){
 
 function fav2Finish (msg){
 	if(msg == "drawend") {
+		log.tm23 = Math.round(date.getTime()/1000);;
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
+		log.tm24 = Math.round(date.getTime()/1000);;
 		$("#tmain").off("click");
 		console.log("FINISH!");
 		//selesai(); //temporary
@@ -149,6 +171,7 @@ function fav2Finish (msg){
 };
 
 function fav3Idle (){
+	log.tm31 = Math.round(date.getTime()/1000);;
 	console.log("idle!");
 	editInfoText(fav3IdleMsg);
 
@@ -159,6 +182,7 @@ function fav3Idle (){
 }
 
 function fav3Draw (){
+	log.tm32 = Math.round(date.getTime()/1000);;
 	console.log("draw!");
 	editInfoText(favDrawMsg);
 
@@ -173,6 +197,7 @@ function fav3Draw (){
 }
 
 function fav3Cancel (){
+	log.tm3cancel++;
 	noEdit();
 	$("#tmain").removeClass("active");
 	console.log("cancel :(");
@@ -181,9 +206,11 @@ function fav3Cancel (){
 
 function fav3Finish (msg){
 	if(msg == "drawend") {
+		log.tm33 = Math.round(date.getTime()/1000);;
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
+		log.tm34 = Math.round(date.getTime()/1000);;
 		$("#tmain").off("click");
 		console.log("FINISH! bgt..");
 		selesai();
@@ -191,6 +218,8 @@ function fav3Finish (msg){
 };
 
 function selesai () {
+	log.finish = Math.round(date.getTime()/1000);;
+	logBrowserData();
 	editInfoText(selesaiMsg);
 	
 	$("#kosLayerAttribute").dialog("option", "buttons", [{
@@ -200,6 +229,7 @@ function selesai () {
 	  },
       click: function() {
         $( "#zubmit" ).trigger("click");
+        log.revisiKos++;
       }
     }]);
 	$("#makanFavoritAttribute").dialog("option", "buttons", [{
@@ -209,6 +239,7 @@ function selesai () {
 	  },
       click: function() {
         $( "#zubmit" ).trigger("click");
+        log.revisiTm++;
       }
     }]);
 
@@ -218,7 +249,9 @@ function selesai () {
 	
 	$("#tmain").off("click");	
 	$("#tmain").on("click", function(evt){
+		log.id = Math.round(date.getTime()/1000);;
 		$("#identitas").dialog("open");
+		
 	});
 	selectInteraction.on('select', defaultSelectFunction);
 	map.addInteraction(selectInteraction);
@@ -252,5 +285,52 @@ window.onbeforeunload = function(evt) {
     return message;
 }
 
+//mencari korelasi media dengan akurasi spasial
+function logBrowserData(){
+	log.window = {};
+	log.window.location = {};
+	log.screen = {};
+	log.navigator = {};
+	
+	//pengaruh layar terhadap akurasi spasial.
+	log.window.innerHeight = window.innerHeight;
+	log.window.innerWidth = window.innerWidth;
+	log.screen.width = screen.width;
+	log.screen.height= screen.height;
+	log.screen.availWidth = screen.availWidth;
+	log.screen.availHeight = screen.availHeight;
+	log.screen.colorDepth = screen.colorDepth; //webmap vs kertas (fotokopi)
+	log.screen.pixelDepth = screen.pixelDepth;
+	
+	//referensi
+	log.window.location.href = window.location.href;
+	
+	
+	//Data browser mana yang tidak support
+	log.navigator.appName = navigator.appName;
+	log.navigator.appCodeName = navigator.appCodeName;
+	log.navigator.product = navigator.product;
+	log.navigator.appVersion = navigator.appVersion;
+	log.navigator.userAgent = navigator.userAgent;
+	log.navigator.platform = navigator.platform;
+	//log.navigator.language = navigator.language; // mayoritas enUS atau Id..
+	//log.navigator.onLine = navigator.onLine;
+	//log.navigator.javaEnabled = navigator.javaEnabled; //tidak ada pengaruh
+}
+
+
 /* mulai aplikasi */
+
+//fungsi opsional -> spatial sampling.
+if (navigator.geolocation) { 
+	navigator.geolocation.getCurrentPosition(function(pos){
+		log.loc = {};
+		log.loc.lat = pos.coords.latitude;
+		log.loc.lon = pos.coords.longitude;
+	});
+} else {
+	//tidak support || tidak diizinkan || karena pakai HTTP.
+}
+
+log.start = Math.round(date.getTime()/1000);
 kosIdle();
