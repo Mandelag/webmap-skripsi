@@ -29,7 +29,7 @@ var date = new Date();
 
 
 function kosIdle (){
-	log.kos1 = Math.round(date.getTime()/1000);
+	log.kos1 = Math.round(new Date().getTime()/1000);
 	console.log("idle!");
 	editInfoText(kosIdleMsg);
 	$("#tmain").off("click");
@@ -39,7 +39,7 @@ function kosIdle (){
 }
 
 function kosDraw (){
-	log.kos2 = Math.round(date.getTime()/1000);
+	log.kos2 = Math.round(new Date().getTime()/1000);
 	console.log("draw!");
 	editInfoText(kosDrawMsg);
 	$("#tmain").addClass("active");
@@ -62,11 +62,11 @@ function kosCancel (){
 
 function kosFinish (msg){
 	if(msg == "drawend") {
-		log.kos3 = Math.round(date.getTime()/1000);
+		log.kos3 = Math.round(new Date().getTime()/1000);
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
-		log.kos4 = Math.round(date.getTime()/1000);
+		log.kos4 = Math.round(new Date().getTime()/1000);
 		$("#tmain").off("click");
 		console.log("FINISH!");
 		fav1Idle();
@@ -74,7 +74,7 @@ function kosFinish (msg){
 };
 
 function fav1Idle (){
-	log.tm11 = Math.round(date.getTime()/1000);;
+	log.tm11 = Math.round(new Date().getTime()/1000);;
 	console.log("idle!");
 	editInfoText(fav1IdleMsg);
 
@@ -85,7 +85,7 @@ function fav1Idle (){
 }
 
 function fav1Draw (){
-	log.tm12 = Math.round(date.getTime()/1000);;
+	log.tm12 = Math.round(new Date().getTime()/1000);;
 	console.log("draw!");
 	editInfoText(favDrawMsg);
 
@@ -109,11 +109,11 @@ function fav1Cancel (){
 
 function fav1Finish (msg){
 	if(msg == "drawend") {
-		log.tm13 = Math.round(date.getTime()/1000);;
+		log.tm13 = Math.round(new Date().getTime()/1000);;
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
-		log.tm14 = Math.round(date.getTime()/1000);;
+		log.tm14 = Math.round(new Date().getTime()/1000);;
 		$("#tmain").off("click");
 		console.log("FINISH!");
 
@@ -123,7 +123,7 @@ function fav1Finish (msg){
 };
 
 function fav2Idle (){
-	log.tm21 = Math.round(date.getTime()/1000);;
+	log.tm21 = Math.round(new Date().getTime()/1000);;
 	console.log("idle!");
 	editInfoText(fav2IdleMsg);
 
@@ -134,7 +134,7 @@ function fav2Idle (){
 }
 
 function fav2Draw (){
-	log.tm22 = Math.round(date.getTime()/1000);;
+	log.tm22 = Math.round(new Date().getTime()/1000);;
 	console.log("draw!");
 	editInfoText(favDrawMsg);
 
@@ -158,11 +158,11 @@ function fav2Cancel (){
 
 function fav2Finish (msg){
 	if(msg == "drawend") {
-		log.tm23 = Math.round(date.getTime()/1000);;
+		log.tm23 = Math.round(new Date().getTime()/1000);;
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
-		log.tm24 = Math.round(date.getTime()/1000);;
+		log.tm24 = Math.round(new Date().getTime()/1000);;
 		$("#tmain").off("click");
 		console.log("FINISH!");
 		//selesai(); //temporary
@@ -171,7 +171,7 @@ function fav2Finish (msg){
 };
 
 function fav3Idle (){
-	log.tm31 = Math.round(date.getTime()/1000);;
+	log.tm31 = Math.round(new Date().getTime()/1000);;
 	console.log("idle!");
 	editInfoText(fav3IdleMsg);
 
@@ -182,7 +182,7 @@ function fav3Idle (){
 }
 
 function fav3Draw (){
-	log.tm32 = Math.round(date.getTime()/1000);;
+	log.tm32 = Math.round(new Date().getTime()/1000);;
 	console.log("draw!");
 	editInfoText(favDrawMsg);
 
@@ -206,11 +206,11 @@ function fav3Cancel (){
 
 function fav3Finish (msg){
 	if(msg == "drawend") {
-		log.tm33 = Math.round(date.getTime()/1000);;
+		log.tm33 = Math.round(new Date().getTime()/1000);;
 		console.log("attribut!");
 		$("#tmain").removeClass("active");
 	}else if(msg == "finish") {
-		log.tm34 = Math.round(date.getTime()/1000);;
+		log.tm34 = Math.round(new Date().getTime()/1000);;
 		$("#tmain").off("click");
 		console.log("FINISH! bgt..");
 		selesai();
@@ -218,7 +218,7 @@ function fav3Finish (msg){
 };
 
 function selesai () {
-	log.finish = Math.round(date.getTime()/1000);;
+	log.finish = Math.round(new Date().getTime()/1000);;
 	logBrowserData();
 	editInfoText(selesaiMsg);
 	
@@ -249,7 +249,7 @@ function selesai () {
 	
 	$("#tmain").off("click");	
 	$("#tmain").on("click", function(evt){
-		log.id = Math.round(date.getTime()/1000);;
+		log.datadiri = Math.round(new Date().getTime()/1000);;
 		$("#identitas").dialog("open");
 		
 	});
@@ -338,5 +338,5 @@ if (navigator.geolocation) {
 	//tidak support || tidak diizinkan || karena pakai HTTP.
 }
 
-log.start = Math.round(date.getTime()/1000);
+log.start = Math.round(new Date().getTime()/1000);
 kosIdle();
