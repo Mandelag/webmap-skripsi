@@ -24,10 +24,10 @@ favoritSource.setProperties({
 	idCounter: 0,
 	name: "Tempat makan",
 	type: "Point",
-	attributes: ['peringkat', 'nama', 'arahan', 'harga-1', 'harga-2', 
+	attributes: ['peringkat', 'nama', 'waktu', 'freq', 'arahan', 'harga-1', 'harga-2', 
 	'kenyamanan-1', 'kenyamanan-2', 'akses-1', 'akses-2', 'fasilitas-1', 'fasilitas-2',
 	'manusia-1', 'manusia-2'],
-	attdisplay: [true, true, true, false, false, false, false, false, false, false, false, false, false]
+	attdisplay: [true, true, false, false, true, false, false, false, false, false, false, false, false, false, false]
 });
 
 /* layers */

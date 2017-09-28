@@ -51,6 +51,16 @@
 			<h4>Nama</h4>
 			<p>Tuliskan nama tempat ini.</p>
 			<input type="text" class="req" name="nama" maxlength="50" oninput="" value="" />
+			<h4>Frekuensi dan Waktu</h4>
+			<p>Dalam 2 minggu terakhir, berapa banyaknya hari kamu mengunjungi tempat ini (0--14)?</p>
+			<span><input type="number" class="kecil req" name="freq" min=0 max=14 length="2" oninput="" value="" /> Hari</span>
+			<p>Kapan kamu biasa makan di tempat ini?</p>
+			<select id="selectWaktu" name="waktu" required>
+					<option value="pagi">Pagi</option>
+					<option value="siang">Siang</option>
+					<option value="sore">Sore</option>
+					<option value="malam">Malam</option>
+			</select>
 			<h4>Arahan menuju tempat ini</h4>
 			<p>Jika kamu ingin mengundang teman kamu yang belum pernah ke tempat ini sama sekali, 
 			arahan seperti apa yang akan kamu berikan?</p>
